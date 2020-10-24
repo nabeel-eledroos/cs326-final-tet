@@ -4,7 +4,7 @@
 
 ### Application Name: Charity Match
 
-### Group Overview:
+### Group Overview: 
 
 Nabeel Eledroos: *nabeel-eledroos*
 
