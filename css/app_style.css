@@ -24,6 +24,10 @@ img {
     font-family: Poppins;
 }
 
+body {
+    background: #F3F3F3;
+}
+
 #co-name {
     position: absolute;
     top: 40px;
@@ -60,18 +64,58 @@ img {
     font-size: 40px;
 }
 
-/* .causes {
-    
-} */
+.cause-wrapper {
+    position: relative;
+    top: 40px;
+    margin: auto;
+    max-width: 800px;
+}
 
-/* option[value=default] {
-    display: none;
-} */
+.cause {
+    position: relative;
+    background: #FAFAFA;
+    box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    margin: 15px 0px;
+    padding: 27px 41px;
+    max-width: 800px;
+}
+
+.cause img[id="fav"]{
+    position: relative;
+    height: 25px;
+    width: 25px;
+    float: right;
+}
+
+.cause img[id="right"]{
+    position: relative;
+    transform: rotate(-90deg);
+    height: 25px;
+    width: 25px;
+    float: left;
+}
+
+.cause img[id="logo"]{
+    position: relative;
+    height: 25px;
+    width: 25px;
+    float: left;
+    margin:0 8px;
+}
+
+.text{
+    font-family: Poppins;
+    color: black;
+    /* font-weight: bold; */
+    position: relative;
+    margin:0 8px;
+}
 
 #cause-filter {
     position: relative;
-    top: 20px;
-    left: 170px;
+    top: 25px;
+    left: 180px;
 }
 
 #signup-btn {
