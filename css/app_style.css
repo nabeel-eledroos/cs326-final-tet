@@ -1,0 +1,55 @@
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.header_img {
+    background-image: url("../assets/app_header.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height:500px;
+    min-width:100%;
+}
+
+.footer_img {
+    background-image: url("../assets/app_footer.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin-top:300px;
+    height:200px;
+    min-width:100%;
+}
+
+* {
+    font-family: Poppins;
+}
+
+#co-name {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 50px;
+    line-height: 75px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.035em;
+
+    color: #FFFFFF;
+}
+
+#signup-btn {
+    font-family: Poppins;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+}
+
+#socials {
+    position: relative;
+    display: flex;
+    bottom: 100px;
+    justify-content: center;
+}
