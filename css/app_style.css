@@ -48,17 +48,17 @@ body {
     font-family: Poppins;
     color: white;
     display: flex;
-    position: absolute;
-    top: 15%;
+    position: relative;
+    top: 25%;
     left: 8%;
     font-size: 40px;
 }
 
 .cards-wrapper {
     display: block;
-    position: absolute;
-    top: 25%;
-    left: 20%;
+    position: relative;
+    top: 30%;
+    /* left: 20%; */
     min-width: 60%;
 }
 
@@ -71,8 +71,8 @@ body {
     color: #3C2A4D;
     display: flex;
     position: relative;
-    top: 10px;
-    left: 150px;
+    top: 27%;
+    left: 8%;
     font-size: 40px;
 }
 
@@ -80,7 +80,7 @@ body {
     position: relative;
     top: 40px;
     margin: auto;
-    max-width: 800px;
+    max-width: 80%;
 }
 
 .cause {
@@ -88,9 +88,9 @@ body {
     background: #FAFAFA;
     box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
-    margin: 15px 0px;
+    margin: 15px auto;
     padding: 27px 41px;
-    max-width: 800px;
+    max-width: 90%;
 }
 
 .cause img[id="fav"]{
