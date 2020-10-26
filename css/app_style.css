@@ -30,13 +30,13 @@ body {
 
 #co-name {
     position: absolute;
-    top: 40px;
-    left: 40px;
+    top: 3%;
+    left: 3%;
     font-style: normal;
     font-weight: bold;
     font-size: 50px;
     line-height: 75px;
-    display: flex;
+    display: block;
     align-items: center;
     text-align: center;
     letter-spacing: 0.035em;
@@ -49,9 +49,21 @@ body {
     color: white;
     display: flex;
     position: absolute;
-    top: 150px;
-    left: 150px;
+    top: 15%;
+    left: 8%;
     font-size: 40px;
+}
+
+.cards-wrapper {
+    display: block;
+    position: absolute;
+    top: 25%;
+    left: 20%;
+    min-width: 60%;
+}
+
+.topic-wrapper {
+    min-height: 250px;
 }
 
 #causes-title {

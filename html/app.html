@@ -9,34 +9,66 @@
         <link rel="stylesheet" href="../css/app_style.css" />
 
         <script src="https://kit.fontawesome.com/4e60f033de.js" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <div class="header_img"></div>
         <div id="co-name">charity match</div>
         <button type="button" id="signup-btn" class="btn btn-light btn-lg">My Account</button>
-        <div id="trending-title"> Trending Topics</div>
-
-        <div id="causes-title"> Causes You Care About</div>
-        <div id="cause-filter">
-            <select name="causes" id="causes" >
-                <option value="default" selected disabled hidden>Filter by Causes</option>
-                <option value="coronavirus">Coronavirus</option>
-                <option value="env">Environmental Issues</option>
-                <option value="edu">Educational Equity</option>
-            </select>
+    </head>
+    <body>
+        <div class="header_img">
+            <div id="trending-title"> Trending Topics</div>
+            <div class="container cards-wrapper">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card topic-wrapper">
+                            <div class="card-body">
+                                <h5 class="card-title">Coronavirus <i class="fas fa-virus"></i></h5>
+                                <p class="card-text">Headline</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card topic-wrapper">
+                            <div class="card-body">
+                                <h5 class="card-title">The US Education System <i class="fas fa-graduation-cap"></i></h5>
+                                <p class="card-text">Headline</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card topic-wrapper">
+                            <div class="card-body">
+                                <h5 class="card-title">Upcoming US Presidential Election <i class="fas fa-balance-scale"></i></h5>
+                                <p class="card-text">Headline</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="cause-wrapper">
-            <div class="cause">
-                <img id="right" src="../assets/dropdown_arrow.png">
-                <img id="logo" src="../assets/unicef.png">
-                <span class="text">UNICEF</span>
-                <img id="fav" src="../assets/empty_star.png"> </div>
-            <div class="cause">
-                <img id="right" src="../assets/dropdown_arrow.png">
-                <img id="logo" src="../assets/unicef.png">
-                <span class="text">Red Cross Red Shield</span>
-                <img id="fav" src="../assets/empty_star.png"> </div>
+        <div id="causes-container">
+            <div id="causes-title"> Causes You Care About</div>
+            <div id="cause-filter">
+                <select name="causes" id="causes" >
+                    <option value="default" selected disabled hidden>Filter by Causes</option>
+                    <option value="coronavirus">Coronavirus</option>
+                    <option value="env">Environmental Issues</option>
+                    <option value="edu">Educational Equity</option>
+                </select>
+            </div>
+            <div class="cause-wrapper">
+                <div class="cause">
+                    <img id="right" src="../assets/dropdown_arrow.png">
+                    <img id="logo" src="../assets/unicef.png">
+                    <span class="text">UNICEF</span>
+                    <img id="fav" src="../assets/empty_star.png"> </div>
+                <div class="cause">
+                    <img id="right" src="../assets/dropdown_arrow.png">
+                    <img id="logo" src="../assets/unicef.png">
+                    <span class="text">Red Cross Red Shield</span>
+                    <img id="fav" src="../assets/empty_star.png"> </div>
+            </div>
         </div>
-        <div class="footer_img"></div>
+        <footer>
+            <div class="footer_img"></div>
+        </footer>
     </body>
 </html>
