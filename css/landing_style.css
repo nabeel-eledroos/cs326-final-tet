@@ -6,6 +6,14 @@
     min-width:100%;
 }
 
+.header-art {
+    position: absolute;
+    top: 2%;
+    right: 15%;
+    height: 248px;
+    width: 200px;
+}
+
 .footer_img {
     background-image: url("../assets/landing_footer.png");
     background-size: 100% 100%;
@@ -13,4 +21,56 @@
     margin-top:300px;
     height:200px;
     min-width:100%;
+}
+
+.references-wrapper {
+    display: flex;
+    justify-content: space-between;
+    min-width: 200px;
+    position: absolute;
+    top: 3%;
+    right: 3%;
+    width: 250px;
+}
+
+.how-btn-wrapper {
+    font-weight: 700;
+    color: black;
+    border: 3px solid black;
+    opacity: .3;
+    background-color: white;
+}
+
+.impact-wrapper {
+    margin-bottom: 15rem;
+}
+
+.impact-title {
+    color: #3E2C4F;
+    font-weight: bolder;
+    font-size: 45px;
+    margin-bottom: 3rem;
+}
+
+.impact-count {
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 70%;
+    font-size: 300px;
+    color: #FFFFFF;
+
+    opacity: 0.8;
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.caption-wrapper {
+    min-width: 390px;
+}
+
+.img-center {
+    position: absolute;
+    top: -75%;
+    left: 10%;
+    width: 544px;
 }
