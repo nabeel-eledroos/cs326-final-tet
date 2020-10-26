@@ -14,38 +14,3 @@
     height:125px;
     min-width:100%;
 }
-
-body {
-    background: #F3F3F3;
-}
-
-#co-name {
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 50px;
-    line-height: 75px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    letter-spacing: 0.035em;
-
-    color: #FFFFFF;
-}
-
-#signup-btn {
-    position: absolute;
-    font-family: Poppins;
-    top: 40px;
-    right: 40px;
-}
-
-#socials {
-    position: relative;
-    display: flex;
-    bottom: 20px;
-    justify-content: center;
-}
