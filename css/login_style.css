@@ -14,3 +14,28 @@
     height:125px;
     min-width:100%;
 }
+
+.sign-in-window {
+    position: absolute;
+    width: 608px;
+    height: 655px;
+    left: 416px;
+    top: 125px;
+
+    background: #FAFBF1;
+    border-radius: 20px;
+}
+
+.h1 {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 60px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.035em;
+
+    color: #3C2A4D;
+
+}
