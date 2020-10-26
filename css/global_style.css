@@ -9,18 +9,14 @@ body {
 
 #co-name {
     position: absolute;
-    top: 40px;
-    left: 40px;
-    font-family: Poppins;
+    display: flex;
+    top: 3%;
+    left: 3%;
     font-style: normal;
     font-weight: bold;
     font-size: 50px;
-    line-height: 75px;
-    display: flex;
-    align-items: center;
     text-align: center;
     letter-spacing: 0.035em;
-
     color: #FFFFFF;
 }
 
@@ -31,9 +27,21 @@ body {
     justify-content: center;
 }
 
-#signup-btn {
+#signin-btn {
     position: absolute;
     font-family: Poppins;
-    top: 40px;
-    right: 40px;
+    border: 1px solid #503A65;
+    border-radius: 20px;
+    color: #503A65;
+    top: 3%;
+    right: 3%;
+}
+
+#signin-btn:hover{
+    background-color: #b6b6b6;
+}
+
+#profile-icon {
+    /* this isnt working and im not sure why */
+    fill: white; 
 }
