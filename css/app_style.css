@@ -15,6 +15,79 @@
     min-width:100%;
 }
 
+.references-wrapper {
+    display: flex;
+    justify-content: space-between;
+    min-width: 200px;
+    position: absolute;
+    top: 3%;
+    right: 3%;
+    width: 250px;
+}
+
+.how-btn-wrapper {
+    font-weight: 700;
+    color: black;
+    border: 3px solid black;
+    opacity: .3;
+    background-color: white;
+}
+
+.trending-container {
+    margin-top: 10rem;
+}
+
+.news-card-style {
+    border-radius: 1rem;
+    height: 200px;
+    width: 100%;
+    z-index: 4;
+}
+
+.charity-card-style-top {
+    margin-top: -7rem;
+    border-radius: 1rem;
+    position: relative;
+    height: 200px;
+    width: 100%;
+    z-index: 3;
+}
+
+.charity-card-style-top:hover {
+    z-index: 5;
+    margin-top: 0;
+}
+
+.charity-card-style-middle {
+    border-radius: 1rem;
+    margin-top: -7rem;
+    z-index: 2;
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    width: 100%;
+}
+
+.charity-card-style-middle:hover {
+    z-index: 5;
+    margin-top: 0;
+}
+
+.charity-card-style-bottom {
+    margin-top: -7rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    z-index: 1;
+    position: relative;
+    height: 200px;
+    width: 100%;
+}
+
+.charity-card-style-bottom:hover {
+    z-index: 5;
+    margin-top: 0;
+}
+
 #trending-title {
     font-family: Poppins;
     color: white;
@@ -35,6 +108,10 @@
 
 .topic-wrapper {
     min-height: 250px;
+}
+
+#causes-container {
+    margin-top: 20rem;
 }
 
 #causes-title {

@@ -14,33 +14,234 @@
     <body>
         <div class="header_img">
             <div id="co-name">charity match</div>
-            <button type="button" id="signin-btn" class="btn btn-outline-primary btn-lg">
-                <img src="../assets/profile.svg" id="profile-icon" alt="my profile">
-            </button>
+            <div id="references" class="references-wrapper">
+                <button type="button" id="how-btn" class="btn btn-lg how-btn-wrapper">How It Works</button>
+                <button type="button" id="signin-btn" class="btn btn-outline-primary btn-lg">
+                    <img src="../assets/profile.svg" id="profile-icon" alt="my profile">
+                </button>
+            </div>
             <div id="trending-title"> Trending Topics</div>
-            <div class="container cards-wrapper">
+            <div class="container trending-container">
                 <div class="row">
-                    <div class="col-4">
-                        <div class="card topic-wrapper">
+                    <div class="col">
+                        <div class="card news-card-style">
                             <div class="card-body">
                                 <h5 class="card-title">Coronavirus <i class="fas fa-virus"></i></h5>
                                 <p class="card-text">Headline</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="card topic-wrapper">
-                            <div class="card-body">
-                                <h5 class="card-title">The US Education System <i class="fas fa-graduation-cap"></i></h5>
-                                <p class="card-text">Headline</p>
+                        <div class="card charity-card-style-top">
+                            <div class="card-body d-flex flex-column mt-auto">
+                                <div class="card-header">
+                                    <p class="card-text">Organization Summary</p>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column mt-auto card-position">
+                                <div class="row no-gutters">
+                                    <div class="col-auto mt-4">
+                                        <img src="../assets/world_hunger.png">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-block px-2">
+                                            <div class="card-header">
+                                                <h5>Solving Hunger in the World</h5>
+                                                <p class="card-text"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card charity-card-style-middle">
+                            <div class="card-body d-flex flex-column mt-auto">
+                                <div class="card-header">
+                                    <p class="card-text">Organization Summary</p>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column mt-auto card-position">
+                                <div class="row no-gutters">
+                                    <div class="col-auto mt-4">
+                                        <img src="../assets/unicef.png">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-block px-2">
+                                            <div class="card-header">
+                                                <h5>No Child Left Behind</h5>
+                                                <p class="card-text"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card charity-card-style-bottom">
+                            <div class="card-body d-flex flex-column mt-auto">
+                                <div class="card-header">
+                                    <p class="card-text">Organization Summary</p>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column mt-auto card-position">
+                                <div class="row no-gutters">
+                                    <div class="col-auto mt-4">
+                                        <img src="../assets/bring_tech.png">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-block px-2">
+                                            <div class="card-header">
+                                                <h5>Bring Technology to Everyone</h5>
+                                                <p class="card-text"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="card topic-wrapper">
+                    <div class="col">
+                        <div class="card news-card-style">
+                            <div class="card-body">
+                                <h5>The US Education System <i class="fas fa-graduation-cap"></i></h5>
+                                <p class="card-text">Headline</p>
+                            </div>
+                        </div>
+                        <div class="card charity-card-style-top">
+                            <div class="card-body d-flex flex-column mt-auto">
+                                <div class="card-header">
+                                    <p class="card-text">Organization Summary</p>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column mt-auto card-position">
+                                <div class="row no-gutters">
+                                    <div class="col-auto mt-4">
+                                        <img src="../assets/world_hunger.png">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-block px-2">
+                                            <div class="card-header">
+                                                <h5>Solving Hunger in the World</h5>
+                                                <p class="card-text"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card charity-card-style-middle">
+                            <div class="card-body d-flex flex-column mt-auto">
+                                <div class="card-header">
+                                    <p class="card-text">Organization Summary</p>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column mt-auto card-position">
+                                <div class="row no-gutters">
+                                    <div class="col-auto mt-4">
+                                        <img src="../assets/unicef.png">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-block px-2">
+                                            <div class="card-header">
+                                                <h5>No Child Left Behind</h5>
+                                                <p class="card-text"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card charity-card-style-bottom">
+                            <div class="card-body d-flex flex-column mt-auto">
+                                <div class="card-header">
+                                    <p class="card-text">Organization Summary</p>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column mt-auto card-position">
+                                <div class="row no-gutters">
+                                    <div class="col-auto mt-4">
+                                        <img src="../assets/bring_tech.png">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-block px-2">
+                                            <div class="card-header">
+                                                <h5>Bring Technology to Everyone</h5>
+                                                <p class="card-text"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card news-card-style">
                             <div class="card-body">
                                 <h5 class="card-title">Upcoming US Presidential Election <i class="fas fa-balance-scale"></i></h5>
                                 <p class="card-text">Headline</p>
+                            </div>
+                        </div>
+                        <div class="card charity-card-style-top">
+                            <div class="card-body d-flex flex-column mt-auto">
+                                <div class="card-header">
+                                    <p class="card-text">Organization Summary</p>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column mt-auto card-position">
+                                <div class="row no-gutters">
+                                    <div class="col-auto mt-4">
+                                        <img src="../assets/world_hunger.png">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-block px-2">
+                                            <div class="card-header">
+                                                <h5>Solving Hunger in the World</h5>
+                                                <p class="card-text"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card charity-card-style-middle">
+                            <div class="card-body d-flex flex-column mt-auto">
+                                <div class="card-header">
+                                    <p class="card-text">Organization Summary</p>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column mt-auto card-position">
+                                <div class="row no-gutters">
+                                    <div class="col-auto mt-4">
+                                        <img src="../assets/unicef.png">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-block px-2">
+                                            <div class="card-header">
+                                                <h5>No Child Left Behind</h5>
+                                                <p class="card-text"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card charity-card-style-bottom">
+                            <div class="card-body d-flex flex-column mt-auto">
+                                <div class="card-header">
+                                    <p class="card-text">Organization Summary</p>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column mt-auto card-position">
+                                <div class="row no-gutters">
+                                    <div class="col-auto mt-4">
+                                        <img src="../assets/bring_tech.png">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-block px-2">
+                                            <div class="card-header">
+                                                <h5>Bring Technology to Everyone</h5>
+                                                <p class="card-text"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,8 +271,8 @@
                     <img id="fav" src="../assets/empty_star.png"> </div>
             </div>
         </div>
-        <footer>
-            <div class="footer_img"></div>
-        </footer>
     </body>
+    <footer>
+        <div class="footer_img"></div>
+    </footer>
 </html>
