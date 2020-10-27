@@ -45,3 +45,7 @@ body {
     /* this isnt working and im not sure why */
     fill: white; 
 }
+
+#smaller-text {
+    font-size: 15px;
+}
