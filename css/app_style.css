@@ -98,6 +98,15 @@
     font-size: 40px;
 }
 
+.card-header {
+    background: white;
+    border: 0px;
+}
+
+.card {
+    box-shadow: 0 4px 2px -2px rgb(211, 211, 211);
+}
+
 .cards-wrapper {
     display: block;
     position: relative;

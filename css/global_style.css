@@ -20,6 +20,10 @@ body {
     color: #FFFFFF;
 }
 
+#co-name:hover {
+    text-shadow: 1px 1px 6px white;
+}
+
 #socials {
     position: relative;
     display: flex;
@@ -50,12 +54,33 @@ body {
     font-size: 15px;
 }
 
+.options {
+    display: block;
+	font-size: 18px;
+	font-weight: 500;
+	color: #3C2A4D;
+	padding: .6em 1.4em .5em .8em;
+	width: 20%;
+	box-sizing: border-box;
+	border: 1px solid #aaa;
+	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+	border-radius: .5em;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: #fff;
+	background-image: url('../assets/filter.svg');
+	background-repeat: no-repeat;
+	background-position: right .7em top 50%;
+	background-size: .65em auto;
+}
+
 .form-container {
     position: relative;
-    top:40%;
-    width: 40%;
+    top: 40%;
+    width: 35%;
     margin: auto;
-    padding:20px;
+    padding: 20px;
     background-color: white;
     text-align: center;
     border-radius: 15px;
