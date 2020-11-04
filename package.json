@@ -1,0 +1,25 @@
+{
+  "name": "cs326-final-tet",
+  "version": "1.0.0",
+  "description": "Express Install",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdrecoulle0001/cs326-final-tet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdrecoulle0001/cs326-final-tet/issues"
+  },
+  "homepage": "https://github.com/jdrecoulle0001/cs326-final-tet#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
