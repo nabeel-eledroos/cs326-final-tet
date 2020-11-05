@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 8080;
-const users = require('fake_data.js');
+const users = require('./fake_data.json');
 
 const _key = '3PN3o9AQbvFIvRxyazCo3tRvYPHyLlFI';
 
