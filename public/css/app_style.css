@@ -1,5 +1,5 @@
 .header_img {
-    background-image: url("../assets/app_header.png");
+    background-image: url("../images/app_header.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     height:500px;
@@ -7,7 +7,7 @@
 }
 
 .footer_img {
-    background-image: url("../assets/app_footer.png");
+    background-image: url("../images/app_footer.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     margin-top:300px;

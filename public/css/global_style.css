@@ -69,7 +69,7 @@ body {
 	-webkit-appearance: none;
 	appearance: none;
 	background-color: #fff;
-	background-image: url('../assets/filter.svg');
+	background-image: url('../images/filter.svg');
 	background-repeat: no-repeat;
 	background-position: right .7em top 50%;
 	background-size: .65em auto;
