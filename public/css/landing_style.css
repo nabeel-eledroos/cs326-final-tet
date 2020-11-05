@@ -1,5 +1,5 @@
 .header_img {
-    background-image: url("../assets/landing_header.png");
+    background-image: url("../images/landing_header.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     height:500px;
@@ -15,7 +15,7 @@
 }
 
 .footer_img {
-    background-image: url("../assets/landing_footer.png");
+    background-image: url("../images/landing_footer.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     margin-top:300px;
