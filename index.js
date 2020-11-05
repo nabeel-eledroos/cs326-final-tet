@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 const app = express();
 const port = 8080;
@@ -6,12 +7,20 @@ const users = require('./fake_data.json');
 const _key = '3PN3o9AQbvFIvRxyazCo3tRvYPHyLlFI';
 
 app.use(express.static('public'));
+app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.redirect('public');
+});
 
 /**
  * Takes post request from client signup and adds them to the user list.
  * NEED TO WIRE signup.html TO SEND POST REQUEST VIA FORM
  */
 app.route('/signup')
+    .get((req, res) => {
+        res.redirect(req.originalUrl + 'signup.html');
+    })
     .post((req, res) => {
         if(!req.body.id || !req.body.password) {
             res.status(400);
@@ -35,6 +44,9 @@ app.route('/signup')
  * NEED TO WIRE signin.html TO SEND POST REQUEST VIA FORM
  */
 app.route('/signin')
+    .get((req, res) => {
+        res.redirect(req.originalUrl + 'sign_in.html')
+    })
     .post((req, res) => {
         if(!req.body.id || !req.body.password) {
             res.status(401);
@@ -43,12 +55,17 @@ app.route('/signin')
             users.filter((user) => {
                 if(user.id === req.body.id && user.password === req.body.password) {
                     req.session.user = user;
-                    res.redirect('/app');
+                    res.redirect('/app/app.html');
                 }
             });
             res.send('Invalid credentials!');
         }
     });
+
+app.get('*', (req, res) => {
+    res.status(404);
+    res.send('request does not exist.');
+});
 
 /**
  * Respond to client making calls for info from NYTimes API 
