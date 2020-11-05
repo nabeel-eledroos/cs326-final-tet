@@ -77,7 +77,7 @@ app.post('/mostPopular', async function(req, res) {
 
 app.get('/topStories', async function(req, res) {
     try {
-        const response = await fetch(nyTimesURL.concat('topstories/v2/us.json'.concat(_key)));
+        const response = await fetch(`https://api.nytimes.com/svc/v2/us.json?api-key=${_key}`);
         if(response.ok) {
             const top_JSON = await response.json();
             res.json(top_JSON);
