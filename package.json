@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/jdrecoulle0001/cs326-final-tet#readme",
   "dependencies": {
-    "express": "^4.17.1"
-  }
+    "express": "^4.17.1",
+    "faker": "^5.1.0"
+  },
+  "proxy": "http://localhost:8080"
 }
