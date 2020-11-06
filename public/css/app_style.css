@@ -15,24 +15,6 @@
     min-width:100%;
 }
 
-.references-wrapper {
-    display: flex;
-    justify-content: space-between;
-    min-width: 200px;
-    position: absolute;
-    top: 3%;
-    right: 3%;
-    width: 250px;
-}
-
-.how-btn-wrapper {
-    font-weight: 700;
-    color: black;
-    border: 3px solid black;
-    opacity: .3;
-    background-color: white;
-}
-
 .trending-container {
     margin-top: 10rem;
 }
@@ -96,6 +78,7 @@
     top: 25%;
     left: 8%;
     font-size: 40px;
+    width: 80%;
 }
 
 .card-header {
@@ -130,6 +113,7 @@
     position: relative;
     top: 27%;
     left: 8%;
+    width:80%;
     font-size: 40px;
 }
 
@@ -183,6 +167,9 @@
 
 #cause-filter {
     position: relative;
+    /* box-sizing: border-box; */
     top: 25px;
     left: 180px;
+    min-width: 180px;
+    max-width: 250px;
 }

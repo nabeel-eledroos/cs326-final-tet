@@ -6,7 +6,6 @@ body {
     background: #F3F3F3;
 }
 
-
 #co-name {
     position: absolute;
     display: flex;
@@ -22,13 +21,7 @@ body {
 
 #co-name:hover {
     text-shadow: 1px 1px 6px white;
-}
-
-#socials {
-    position: relative;
-    display: flex;
-    bottom: 20px;
-    justify-content: center;
+    text-decoration: none;
 }
 
 #signin-btn {
@@ -52,6 +45,31 @@ body {
 
 #smaller-text {
     font-size: 15px;
+}
+
+.references-wrapper {
+    display: flex;
+    justify-content: space-between;
+    min-width: 200px;
+    position: absolute;
+    top: 3%;
+    right: 3%;
+}
+
+#landing-references {
+    width: 200px;
+}
+
+#app-references {
+    width: 250px;
+}
+
+.how-btn-wrapper {
+    font-weight: 700;
+    color: black;
+    border: 3px solid black;
+    opacity: .3;
+    background-color: white;
 }
 
 .options {
