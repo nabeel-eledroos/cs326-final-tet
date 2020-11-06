@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="/css/login_style.css" />
 
         <script src="https://kit.fontawesome.com/4e60f033de.js" crossorigin="anonymous"></script>
+        <script src="/scripts/utils.js" ></script>
     </head>
     <body>
         <div class="header_img">
@@ -18,14 +19,14 @@
             <div class ="form-container">
                 <h2>Get Started Today</h1><br><br>
                 <form>
-                    <input type="text" id="fname" name="fname" placeholder="Full name"><br><br>
+                    <input type="text" id="fullname" name="fullname" placeholder="Full name"><br><br>
 
                     <input type="text" id="email" name="email" placeholder="Email"><br><br>
 
                     <input type="text" id="password" name="password" placeholder="Password"><br><br>
 
-                    <input type="text" id="password" name="password" placeholder="Re-enter Password"><br><br><br>
-                    <input type="button" value="Next">
+                    <input type="text" id="repassword" name="repassword" placeholder="Re-enter Password"><br><br><br>
+                    <input type="button" value="Next" onclick="sign_up()">
                 </form>
             </div>
         </div>

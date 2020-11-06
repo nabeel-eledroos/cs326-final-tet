@@ -15,7 +15,6 @@ app.get('/', (req, res) => {
 
 /**
  * Takes post request from client signup and adds them to the user list.
- * NEED TO WIRE signup.html TO SEND POST REQUEST VIA FORM
  */
 app.route('/signup')
     .get((req, res) => {
@@ -31,17 +30,18 @@ app.route('/signup')
                     res.send('User already exists.');
                 }
             });
-            const newUser = { id: req.body.id, password: req.body.password };
+            const newUser = { first_name: req.body.first_name, last_name: req.body.last_name, id: req.body.id, password: req.body.password };
             users.push(newUser);
-            req.session.user = newUser;
-            res.redirect('/app');
+            res.status(200);
+            res.send('User Added');
+            // req.session.user = newUser;
+            // res.redirect('/app');
         }
     });
 
 /**
  * Takes post request from client signin and checks info to see if user. If login credentials are valid
  * it sends them to the app html
- * NEED TO WIRE signin.html TO SEND POST REQUEST VIA FORM
  */
 app.route('/signin')
     .get((req, res) => {
@@ -57,7 +57,7 @@ app.route('/signin')
                     // req.session.user = user;
                     // res.redirect('/app/app.html');
                     res.status(200);
-                    res.send('Invalid credentials!');
+                    res.send('Valid credentials');
                 }
             });
             // res.send('Invalid credentials!');

@@ -2,7 +2,6 @@ async function sign_in() {
     const username = document.getElementById('uname').value;
     const password = document.getElementById('pword').value;
     body = {id: username, password: password};
-    console.log(body);
     const response = await fetch('http://localhost:8080/signin', {
         method: 'post',
         body: JSON.stringify(body),
@@ -20,6 +19,31 @@ async function sign_in() {
     }
 }
 
-function sign_up() {
-    console.log("hello");
+async function sign_up() {
+    const name = document.getElementById('fullname').value.split(" ");
+    const first_name = name[0];
+    const last_name = name[1];
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const repassword = document.getElementById('repassword').value;
+    if (password != repassword) {
+        console.log("Passwords Don't Match!");
+        return;
+    }
+    body = {first_name: first_name, last_name: last_name, id: email, password: password};
+    const response = await fetch('http://localhost:8080/signup', {
+        method: 'post',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        // const resjson = await response.json();
+        window.location.href = '/app/app.html';
+    } else {
+        console.log(response.error);
+        return;
+    }
 }
