@@ -109,7 +109,7 @@ input[type="text"] {
     color: #3C2A4D;
 }
 
-input[type=submit] {
+input[type=button] {
     width:60%;
     background: #95ADBE;
     border: 0px;

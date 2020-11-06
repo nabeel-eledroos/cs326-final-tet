@@ -27,7 +27,7 @@ app.route('/signup')
             res.send("Invalid Details!");
         } else {
             users.filter((user) => {
-                if(user.id === req.body.id) {
+                if(user.email === req.body.id) {
                     res.send('User already exists.');
                 }
             });
@@ -53,12 +53,14 @@ app.route('/signin')
             res.send("id or password empty!");
         } else {
             users.filter((user) => {
-                if(user.id === req.body.id && user.password === req.body.password) {
-                    req.session.user = user;
-                    res.redirect('/app/app.html');
+                if(user.email === req.body.id && user.password === req.body.password) {
+                    // req.session.user = user;
+                    // res.redirect('/app/app.html');
+                    res.status(200);
+                    res.send('Invalid credentials!');
                 }
             });
-            res.send('Invalid credentials!');
+            // res.send('Invalid credentials!');
         }
     });
 
