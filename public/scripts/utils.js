@@ -1,6 +1,6 @@
 async function sign_in() {
-    const username = document.getElementById('uname').value;
-    const password = document.getElementById('pword').value;
+    const username = document.getElementById('uname').value,
+        password = document.getElementById('pword').value;
     body = {id: username, password: password};
     const response = await fetch('http://localhost:8080/signin', {
         method: 'post',
@@ -12,7 +12,7 @@ async function sign_in() {
 
     if (response.ok) {
         // const resjson = await response.json();
-        window.location.href = '/signup/pick_interests.html';
+        window.location.href = '/app/app.html';
     } else {
         console.log(response.error);
         return;
@@ -20,12 +20,12 @@ async function sign_in() {
 }
 
 async function sign_up() {
-    const name = document.getElementById('fullname').value.split(" ");
-    const first_name = name[0];
-    const last_name = name[1];
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const repassword = document.getElementById('repassword').value;
+    const name = document.getElementById('fullname').value.split(" "),
+        first_name = name[0],
+        last_name = name[1],
+        email = document.getElementById('email').value,
+        password = document.getElementById('password').value,
+        repassword = document.getElementById('repassword').value;
     if (password != repassword) {
         console.log("Passwords Don't Match!");
         return;
@@ -41,7 +41,7 @@ async function sign_up() {
 
     if (response.ok) {
         // const resjson = await response.json();
-        window.location.href = '/app/app.html';
+        window.location.href = '/signup/pick_interests.html';
     } else {
         console.log(response.error);
         return;

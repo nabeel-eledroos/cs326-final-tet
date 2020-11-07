@@ -1,8 +1,11 @@
 const { response } = require('express');
 const express = require('express');
 const app = express();
-const port = 8080;
 const users = require('./fake_data.json');
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
 
 const _key = '3PN3o9AQbvFIvRxyazCo3tRvYPHyLlFI';
 

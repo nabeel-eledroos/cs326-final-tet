@@ -9,7 +9,7 @@
 .header-art {
     position: absolute;
     top: 2%;
-    right: 15%;
+    right: 20%;
     height: 248px;
     width: 200px;
 }
@@ -21,24 +21,6 @@
     margin-top:300px;
     height:200px;
     min-width:100%;
-}
-
-.references-wrapper {
-    display: flex;
-    justify-content: space-between;
-    min-width: 200px;
-    position: absolute;
-    top: 3%;
-    right: 3%;
-    width: 250px;
-}
-
-.how-btn-wrapper {
-    font-weight: 700;
-    color: black;
-    border: 3px solid black;
-    opacity: .3;
-    background-color: white;
 }
 
 .impact-wrapper {
