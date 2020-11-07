@@ -108,3 +108,9 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 
 
 ## Deployment
+
+Heroku: [https://charity--match.herokuapp.com](https://charity--match.herokuapp.com)
+
+
+## Division of Labor
+
