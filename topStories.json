@@ -1,0 +1,257 @@
+{
+    "status": "OK",
+    "copyright": "Copyright (c) 2020 The New York Times Company. All Rights Reserved.",
+    "section": "U.S. News",
+    "last_updated": "2020-11-05T20:38:15-05:00",
+    "num_results": 25,
+    "results": [
+        {
+            "section": "us",
+            "subsection": "",
+            "title": "In a Year of Protest Cries, Now It’s ‘Count Every Vote!’ and ‘Stop the Steal!’",
+            "abstract": "Demonstrations have broken out all year long across America, and they have not let up as states tally ballots after Election Day.",
+            "url": "https://www.nytimes.com/2020/11/05/us/election-protests-vote-count.html",
+            "uri": "nyt://article/2380a63e-d24c-59c8-9413-a17171e45dc7",
+            "byline": "By Simon Romero, Shaila Dewan and Giulia McDonnell Nieto del Rio",
+            "item_type": "Article",
+            "updated_date": "2020-11-06T10:40:24-05:00",
+            "created_date": "2020-11-05T18:56:05-05:00",
+            "published_date": "2020-11-05T18:56:05-05:00",
+            "material_type_facet": "",
+            "kicker": "",
+            "des_facet": [
+                "Presidential Election of 2020",
+                "Demonstrations, Protests and Riots"
+            ],
+            "org_facet": [],
+            "per_facet": [
+                "Biden, Joseph R Jr",
+                "Trump, Donald J"
+            ],
+            "geo_facet": [],
+            "multimedia": [
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/06/us/05votingprotests-1/merlin_179627493_327ec860-a692-42d8-a947-40ebbbe6223f-superJumbo.jpg",
+                    "format": "superJumbo",
+                    "height": 1365,
+                    "width": 2048,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A &ldquo;Stop the Steal&rdquo; rally at the Pennsylvania State Capitol was one of the nationwide demonstrations on Thursday contesting the process of determining the next president.",
+                    "copyright": "Gabriela Bhaskar for The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/06/us/05votingprotests-1/merlin_179627493_327ec860-a692-42d8-a947-40ebbbe6223f-thumbStandard.jpg",
+                    "format": "Standard Thumbnail",
+                    "height": 75,
+                    "width": 75,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A &ldquo;Stop the Steal&rdquo; rally at the Pennsylvania State Capitol was one of the nationwide demonstrations on Thursday contesting the process of determining the next president.",
+                    "copyright": "Gabriela Bhaskar for The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/06/us/05votingprotests-1/merlin_179627493_327ec860-a692-42d8-a947-40ebbbe6223f-thumbLarge.jpg",
+                    "format": "thumbLarge",
+                    "height": 150,
+                    "width": 150,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A &ldquo;Stop the Steal&rdquo; rally at the Pennsylvania State Capitol was one of the nationwide demonstrations on Thursday contesting the process of determining the next president.",
+                    "copyright": "Gabriela Bhaskar for The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/06/us/05votingprotests-1/merlin_179627493_327ec860-a692-42d8-a947-40ebbbe6223f-mediumThreeByTwo210.jpg",
+                    "format": "mediumThreeByTwo210",
+                    "height": 140,
+                    "width": 210,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A &ldquo;Stop the Steal&rdquo; rally at the Pennsylvania State Capitol was one of the nationwide demonstrations on Thursday contesting the process of determining the next president.",
+                    "copyright": "Gabriela Bhaskar for The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/06/us/05votingprotests-1/merlin_179627493_327ec860-a692-42d8-a947-40ebbbe6223f-articleInline.jpg",
+                    "format": "Normal",
+                    "height": 127,
+                    "width": 190,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A &ldquo;Stop the Steal&rdquo; rally at the Pennsylvania State Capitol was one of the nationwide demonstrations on Thursday contesting the process of determining the next president.",
+                    "copyright": "Gabriela Bhaskar for The New York Times"
+                }
+            ],
+            "short_url": "https://nyti.ms/34ZwjaY"
+        },
+        {
+            "section": "us",
+            "subsection": "",
+            "title": "One Day in America: More Than 121,000 Coronavirus Cases",
+            "abstract": "Thursday brought more coronavirus infections than in any other day of the pandemic. Around the country, the virus left its mark.",
+            "url": "https://www.nytimes.com/2020/11/05/us/covid-one-day-in-america.html",
+            "uri": "nyt://article/df1cdce5-84b4-5239-b035-00dcaabcc5b6",
+            "byline": "By Julie Bosman, Audra D. S. Burch and Sarah Mervosh",
+            "item_type": "Article",
+            "updated_date": "2020-11-06T10:35:47-05:00",
+            "created_date": "2020-11-05T20:05:17-05:00",
+            "published_date": "2020-11-05T20:05:17-05:00",
+            "material_type_facet": "",
+            "kicker": "",
+            "des_facet": [
+                "Coronavirus (2019-nCoV)",
+                "Disease Rates",
+                "Tests (Medical)",
+                "States (US)"
+            ],
+            "org_facet": [],
+            "per_facet": [],
+            "geo_facet": [
+                "United States"
+            ],
+            "multimedia": [
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/05/us/05virus-oneday-1/merlin_179618520_7351d610-d1f5-413f-be8e-85e55ffde0ea-superJumbo.jpg",
+                    "format": "superJumbo",
+                    "height": 1366,
+                    "width": 2048,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A coronavirus testing site in Milwaukee on Thursday, the nation’s worst day of the pandemic in terms of new cases.",
+                    "copyright": "Taylor Glascock for The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/05/us/05virus-oneday-1/05virus-oneday-1-thumbStandard.jpg",
+                    "format": "Standard Thumbnail",
+                    "height": 75,
+                    "width": 75,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A coronavirus testing site in Milwaukee on Thursday, the nation’s worst day of the pandemic in terms of new cases.",
+                    "copyright": "Taylor Glascock for The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/05/us/05virus-oneday-1/05virus-oneday-1-thumbLarge.jpg",
+                    "format": "thumbLarge",
+                    "height": 150,
+                    "width": 150,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A coronavirus testing site in Milwaukee on Thursday, the nation’s worst day of the pandemic in terms of new cases.",
+                    "copyright": "Taylor Glascock for The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/05/us/05virus-oneday-1/merlin_179618520_7351d610-d1f5-413f-be8e-85e55ffde0ea-mediumThreeByTwo210.jpg",
+                    "format": "mediumThreeByTwo210",
+                    "height": 140,
+                    "width": 210,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A coronavirus testing site in Milwaukee on Thursday, the nation’s worst day of the pandemic in terms of new cases.",
+                    "copyright": "Taylor Glascock for The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/05/us/05virus-oneday-1/merlin_179618520_7351d610-d1f5-413f-be8e-85e55ffde0ea-articleInline.jpg",
+                    "format": "Normal",
+                    "height": 127,
+                    "width": 190,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A coronavirus testing site in Milwaukee on Thursday, the nation’s worst day of the pandemic in terms of new cases.",
+                    "copyright": "Taylor Glascock for The New York Times"
+                }
+            ],
+            "short_url": "https://nyti.ms/35042B5"
+        },
+        {
+            "section": "us",
+            "subsection": "",
+            "title": "A Big Win for Democrats in California Came With a Gut Check for Liberals",
+            "abstract": "Joe Biden received one of the highest margins in the nation in California, but a look at how the state’s ballot measures were decided shows a more complex picture of the electorate.",
+            "url": "https://www.nytimes.com/2020/11/05/us/california-election-results.html",
+            "uri": "nyt://article/d488ab80-50c0-51e7-b91e-281e5f63592f",
+            "byline": "By Thomas Fuller, Shawn Hubler, Tim Arango and Conor Dougherty",
+            "item_type": "Article",
+            "updated_date": "2020-11-06T18:44:20-05:00",
+            "created_date": "2020-11-05T19:08:55-05:00",
+            "published_date": "2020-11-05T19:08:55-05:00",
+            "material_type_facet": "",
+            "kicker": "",
+            "des_facet": [
+                "Politics and Government",
+                "Referendums",
+                "Liberalism (US Politics)",
+                "Taxation",
+                "Affirmative Action",
+                "Criminal Justice",
+                "Rent Control and Stabilization",
+                "Landlords",
+                "Property Taxes",
+                "Freelancing, Self-Employment and Independent Contracting",
+                "Presidential Election of 2020",
+                "United States Politics and Government"
+            ],
+            "org_facet": [
+                "Democratic Party"
+            ],
+            "per_facet": [
+                "Biden, Joseph R Jr"
+            ],
+            "geo_facet": [
+                "California"
+            ],
+            "multimedia": [
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/05/us/05californiavote-promo/05californiavote-promo-superJumbo.jpg",
+                    "format": "superJumbo",
+                    "height": 1365,
+                    "width": 2048,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "",
+                    "copyright": "Jim Wilson/The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/05/us/05californiavote-promo/05californiavote-promo-thumbStandard.jpg",
+                    "format": "Standard Thumbnail",
+                    "height": 75,
+                    "width": 75,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "",
+                    "copyright": "Jim Wilson/The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/05/us/05californiavote-promo/05californiavote-promo-thumbLarge.jpg",
+                    "format": "thumbLarge",
+                    "height": 150,
+                    "width": 150,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "",
+                    "copyright": "Jim Wilson/The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/05/us/05californiavote-promo/05californiavote-promo-mediumThreeByTwo210.jpg",
+                    "format": "mediumThreeByTwo210",
+                    "height": 140,
+                    "width": 210,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "",
+                    "copyright": "Jim Wilson/The New York Times"
+                },
+                {
+                    "url": "https://static01.nyt.com/images/2020/11/05/us/05californiavote-promo/05californiavote-promo-articleInline.jpg",
+                    "format": "Normal",
+                    "height": 127,
+                    "width": 190,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "",
+                    "copyright": "Jim Wilson/The New York Times"
+                }
+            ],
+            "short_url": "https://nyti.ms/3oYUhLz"
+        }
+    ]
+}

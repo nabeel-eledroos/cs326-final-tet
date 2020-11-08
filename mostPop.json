@@ -1,0 +1,141 @@
+{
+    "status": "OK",
+    "copyright": "Copyright (c) 2020 The New York Times Company.  All Rights Reserved.",
+    "num_results": 3,
+    "results": [
+        {
+            "uri": "nyt://article/e74bf800-4d6f-5d09-8404-0d5ac060263b",
+            "url": "https://www.nytimes.com/2020/11/07/us/politics/biden-election.html",
+            "id": 100000007435608,
+            "asset_id": 100000007435608,
+            "source": "New York Times",
+            "published_date": "2020-11-07",
+            "updated": "2020-11-08 08:52:08",
+            "section": "U.S.",
+            "subsection": "Politics",
+            "nytdsection": "u.s.",
+            "adx_keywords": "Presidential Election of 2020;United States Politics and Government;internal-election-open;Biden, Joseph R Jr;Trump, Donald J;Harris, Kamala D;Democratic Party",
+            "column": null,
+            "byline": "By Jonathan Martin and Alexander Burns",
+            "type": "Article",
+            "title": "Biden Wins Presidency, Ending Four Tumultuous Years Under Trump",
+            "abstract": "Joseph R. Biden Jr. achieved victory offering a message of healing and unity. He will return to Washington facing a daunting set of crises.",
+            "des_facet": [
+                "Presidential Election of 2020",
+                "United States Politics and Government",
+                "internal-election-open"
+            ],
+            "org_facet": [
+                "Democratic Party"
+            ],
+            "per_facet": [
+                "Biden, Joseph R Jr",
+                "Trump, Donald J",
+                "Harris, Kamala D"
+            ],
+            "geo_facet": [],
+            "media": [],
+            "eta_id": 0
+        },
+        {
+            "uri": "nyt://article/fdf2e189-bc67-5c87-a114-71127ef83499",
+            "url": "https://www.nytimes.com/2020/11/07/us/politics/trump-white-house-biden.html",
+            "id": 100000007442412,
+            "asset_id": 100000007442412,
+            "source": "New York Times",
+            "published_date": "2020-11-07",
+            "updated": "2020-11-08 12:01:57",
+            "section": "U.S.",
+            "subsection": "Politics",
+            "nytdsection": "u.s.",
+            "adx_keywords": "Suits and Litigation (Civil);Voter Fraud (Election Fraud);Absentee Voting;Rumors and Misinformation;Presidential Election of 2020;United States Politics and Government;Trump, Donald J;Biden, Joseph R Jr",
+            "column": null,
+            "byline": "By Maggie Haberman and Michael D. Shear",
+            "type": "Article",
+            "title": "Denial, and Resignation, From Trump and a Handful of Aides",
+            "abstract": "Aides said the president had no plans to immediately deliver the kind of concession speech that has become traditional in past elections, and his campaign vowed to continue waging its legal battle across the country.",
+            "des_facet": [
+                "Suits and Litigation (Civil)",
+                "Voter Fraud (Election Fraud)",
+                "Absentee Voting",
+                "Rumors and Misinformation",
+                "Presidential Election of 2020",
+                "United States Politics and Government"
+            ],
+            "org_facet": [],
+            "per_facet": [
+                "Trump, Donald J",
+                "Biden, Joseph R Jr"
+            ],
+            "geo_facet": [],
+            "media": [
+                {
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "President Trump arriving to the White House after golfing on Saturday.",
+                    "copyright": "Oliver Contreras for The New York Times",
+                    "approved_for_syndication": 1,
+                    "media-metadata": [
+                        {
+                            "url": "https://static01.nyt.com/images/2020/11/07/us/politics/07dc-trump-sub-1/merlin_179708133_64e2b97d-af91-49f0-bdf8-bb7e254b3c70-thumbStandard.jpg",
+                            "format": "Standard Thumbnail",
+                            "height": 75,
+                            "width": 75
+                        },
+                        {
+                            "url": "https://static01.nyt.com/images/2020/11/07/us/politics/07dc-trump-sub-1/merlin_179708133_64e2b97d-af91-49f0-bdf8-bb7e254b3c70-mediumThreeByTwo210.jpg",
+                            "format": "mediumThreeByTwo210",
+                            "height": 140,
+                            "width": 210
+                        },
+                        {
+                            "url": "https://static01.nyt.com/images/2020/11/07/us/politics/07dc-trump-sub-1/merlin_179708133_64e2b97d-af91-49f0-bdf8-bb7e254b3c70-mediumThreeByTwo440.jpg",
+                            "format": "mediumThreeByTwo440",
+                            "height": 293,
+                            "width": 440
+                        }
+                    ]
+                }
+            ],
+            "eta_id": 0
+        },
+        {
+            "uri": "nyt://article/d1135f36-d822-5c53-93ea-0856889d0051",
+            "url": "https://www.nytimes.com/2020/11/07/us/politics/kamala-harris.html",
+            "id": 100000007427845,
+            "asset_id": 100000007427845,
+            "source": "New York Times",
+            "published_date": "2020-11-07",
+            "updated": "2020-11-08 09:32:33",
+            "section": "U.S.",
+            "subsection": "Politics",
+            "nytdsection": "u.s.",
+            "adx_keywords": "Presidential Election of 2020;Vice Presidents and Vice Presidency (US);Women and Girls;Black People;Indian-Americans;Race and Ethnicity;United States Politics and Government;Content Type: Personal Profile;Harris, Kamala D;Biden, Joseph R Jr;Democratic Party",
+            "column": null,
+            "byline": "By Lisa Lerer and Sydney Ember",
+            "type": "Article",
+            "title": "Kamala Harris Makes History as First Woman and Woman of Color as Vice President",
+            "abstract": "Ms. Harris, the daughter of an Indian mother and Jamaican father, has risen higher in the country’s leadership than any woman ever before her.",
+            "des_facet": [
+                "Presidential Election of 2020",
+                "Vice Presidents and Vice Presidency (US)",
+                "Women and Girls",
+                "Black People",
+                "Indian-Americans",
+                "Race and Ethnicity",
+                "United States Politics and Government",
+                "Content Type: Personal Profile"
+            ],
+            "org_facet": [
+                "Democratic Party"
+            ],
+            "per_facet": [
+                "Harris, Kamala D",
+                "Biden, Joseph R Jr"
+            ],
+            "geo_facet": [],
+            "media": [],
+            "eta_id": 0
+        }
+    ]
+}
