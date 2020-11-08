@@ -1,8 +1,10 @@
+const __dirname = location.protocol + '//' + location.host;
+
 async function sign_in() {
     const username = document.getElementById('uname').value,
         password = document.getElementById('pword').value;
     body = {id: username, password: password};
-    const response = await fetch('http://localhost:8080/signin', {
+    const response = await fetch(__dirname + '/signin', {
         method: 'post',
         body: JSON.stringify(body),
         headers: {
@@ -31,7 +33,7 @@ async function sign_up() {
         return;
     }
     body = {first_name: first_name, last_name: last_name, id: email, password: password};
-    const response = await fetch('http://localhost:8080/signup', {
+    const response = await fetch(__dirname + '/signup', {
         method: 'post',
         body: JSON.stringify(body),
         headers: {
