@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
         if(response.ok) {
             const status = await response.json();
             console.log(status);
-            window.location.hred = '../app/app.html';
+            window.location.href = '../app/app.html';
         } else {
             console.log(response.error);
             alert('Could not reach out to the server! Sorry.');
