@@ -1,7 +1,10 @@
+const fs = require('fs');
 const {response} = require('express');
 const express = require('express');
 const app = express();
-const users = require('./fake_data.json');
+
+const datafile = './fake_data.json';
+const users = require(datafile);
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 8000;
@@ -35,6 +38,11 @@ app.route('/signup')
             });
             const newUser = { first_name: req.body.first_name, last_name: req.body.last_name, id: req.body.id, password: req.body.password };
             users.push(newUser);
+            fs.writeFile(datafile, JSON.stringify(users), err => {
+                if (err) {
+                    console.err(err);
+                }
+            });
             res.status(200);
             res.send('User Added');
         }
@@ -57,6 +65,7 @@ app.route('/signin')
                 if(user.email === req.body.id && user.password === req.body.password) {
                     res.status(200);
                     res.send('Valid credentials');
+                    res.end();
                 }
             });
             res.send('Invalid credentials!');
@@ -69,6 +78,11 @@ app.post('/interests', (req, res) => {
     const reqInterests = req.body.interests;
     reqInterests.forEach((interest) => {
         users[randoUser].interests.push(interest);
+    });
+    fs.writeFile(datafile, JSON.stringify(users), err => {
+        if (err) {
+            console.err(err);
+        }
     });
     res.json({ user: users[randoUser] });
 });
