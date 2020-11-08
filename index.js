@@ -1,5 +1,4 @@
 const fs = require('fs');
-const {response} = require('express');
 const express = require('express');
 const app = express();
 
@@ -8,12 +7,9 @@ const users = require(datafile);
 const mostPopular = require('./mostPop.json');
 const topStories = require('./topStories.json');
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8000;
-}
+const port = process.env.PORT || 8000;
 
-const _key = '3PN3o9AQbvFIvRxyazCo3tRvYPHyLlFI';
+// const _key = '3PN3o9AQbvFIvRxyazCo3tRvYPHyLlFI';
 
 app.use(express.static('public'));
 app.use(express.json());
