@@ -1,10 +1,9 @@
-const { response } = require('express');
 const express = require('express');
 const app = express();
 const users = require('./fake_data.json');
 let port = process.env.PORT;
 if (port == null || port == "") {
-  port = 8000;
+  port = 8080;
 }
 
 const _key = '3PN3o9AQbvFIvRxyazCo3tRvYPHyLlFI';
@@ -37,8 +36,6 @@ app.route('/signup')
             users.push(newUser);
             res.status(200);
             res.send('User Added');
-            // req.session.user = newUser;
-            // res.redirect('/app');
         }
     });
 
@@ -57,15 +54,23 @@ app.route('/signin')
         } else {
             users.filter((user) => {
                 if(user.email === req.body.id && user.password === req.body.password) {
-                    // req.session.user = user;
-                    // res.redirect('/app/app.html');
                     res.status(200);
                     res.send('Valid credentials');
                 }
             });
-            // res.send('Invalid credentials!');
+            res.send('Invalid credentials!');
         }
     });
+
+app.post('/interests', (req, res) => {
+    console.log(req.body);
+    const randoUser = Math.floor(Math.random() * 100);
+    const reqInterests = req.body.interests;
+    reqInterests.forEach((interest) => {
+        users[randoUser].interests.push(interest);
+    });
+    res.json({ user: users[randoUser] });
+});
 
 app.get('*', (req, res) => {
     res.status(404);
