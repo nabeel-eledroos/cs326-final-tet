@@ -1,16 +1,15 @@
 const fs = require('fs');
-const {response} = require('express');
 const express = require('express');
 const app = express();
 
 const datafile = './fake_data.json';
 const users = require(datafile);
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8000;
-}
+const mostPopular = require('./mostPop.json');
+const topStories = require('./topStories.json');
 
-const _key = '3PN3o9AQbvFIvRxyazCo3tRvYPHyLlFI';
+const port = process.env.PORT || 8000;
+
+// const _key = '3PN3o9AQbvFIvRxyazCo3tRvYPHyLlFI';
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -87,6 +86,16 @@ app.post('/interests', (req, res) => {
     res.json({ user: users[randoUser] });
 });
 
+app.get('/topStories', (req, res) => {
+    const resData = topStories.results;
+    res.json({ topStoriesResults: resData });
+});
+
+app.get('/mostPopular', (req, res) => {
+    const resData = mostPopular.results;
+    res.json({ mostPopularResults: resData });
+});
+
 app.get('*', (req, res) => {
     res.status(404);
     res.send('request does not exist.');
@@ -96,44 +105,26 @@ app.get('*', (req, res) => {
  * Respond to client making calls for info from NYTimes API 
  * CURRENTLY BROKEN
  */
-app.post('/mostPopular', async function(req, res) {
-    const response = getMostPopular();
-    res.send(response);
-    try {
-        const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${_key}`;
-        const response = await fetch(path);
+// app.post('/mostPopular', async function(req, res) {
+//     const response = getMostPopular();
+//     res.send(response);
+//     try {
+//         const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${_key}`;
+//         const response = await fetch(path);
 
-        if(response.ok) {
-            const pop_JSON = await response.json();
-            res.send(JSON.stringify(pop_JSON)); 
-        } else {
-            throw new Error(response.statusText);
-        }
-    } catch(e) {
-        res.status = 405;
-        res.send({
-            'status': e
-        });
-    }
-});
-
-app.get('/topStories', async function(req, res) {
-    try {
-        const response = await fetch(`https://api.nytimes.com/svc/v2/us.json?api-key=${_key}`);
-        if(response.ok) {
-            const top_JSON = await response.json();
-            res.json(top_JSON);
-        } else {
-            throw new Error(response.statusText);
-        }
-    } catch(e) {
-        res.json({
-            'errorCode': 405,
-            'statusText': e,
-            'msg': 'Could not retrieve most popular stories.'
-        });
-    }
-});
+//         if(response.ok) {
+//             const pop_JSON = await response.json();
+//             res.send(JSON.stringify(pop_JSON)); 
+//         } else {
+//             throw new Error(response.statusText);
+//         }
+//     } catch(e) {
+//         res.status = 405;
+//         res.send({
+//             'status': e
+//         });
+//     }
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
