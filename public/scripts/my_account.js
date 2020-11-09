@@ -3,7 +3,6 @@ const __dirname = location.protocol + '//' + location.host;
 async function getInfo() {
     try {
         const response = await fetch(__dirname + '/userInfo');
-        console.log("trying");
         if(response.ok) {
             const accountInfo = await response.json();
             return accountInfo;
@@ -16,7 +15,7 @@ async function getInfo() {
     }
 }
 
-window.addEventListener('load', async () => {
+async function render() {
     const account_info = await getInfo();
     const { name, email, password, interests, charities } = account_info[0];
 
@@ -24,7 +23,10 @@ window.addEventListener('load', async () => {
     document.getElementById('email').innerText = email;
     document.getElementById('password').innerText = password;
     document.getElementById('interests').innerText = interests.length > 0 ? interests : "no interests :(";
-    console.log(account_info);
+}
+
+window.addEventListener('load', async () => {
+    render();
 });
 
 async function deleteAcct() {
@@ -33,6 +35,25 @@ async function deleteAcct() {
     if (response.ok) {
         const reshtml = await response.text();
         window.location.replace(reshtml);
+    } else {
+        console.log(response.error);
+        return;
+    }
+}
+
+async function changePass() {
+    body = { password: document.getElementById('cpass').value };
+    const response = await fetch(__dirname + '/changePass', {
+        method: 'post',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (response.ok) {
+        const reshtml = await response.text();
+        document.getElementById('cpass').value = "";
+        render();
     } else {
         console.log(response.error);
         return;

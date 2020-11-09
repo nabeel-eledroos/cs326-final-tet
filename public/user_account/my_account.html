@@ -15,7 +15,6 @@
     <body>
         <div class="header_img">
             <a href="/app/app.html" id="co-name">charity match</a>
-            <input type="submit" value="Change Password" id="change-pass-btn" class="btn btn-outline-primary btn-lg">
             <input type="submit" value="Delete Account" id="delete-btn" class="btn btn-outline-primary btn-lg" onclick="deleteAcct()">
             <div class="form-container">
                 <h2><span id="name"></span></h2>
@@ -25,7 +24,10 @@
                 Password: <span class="smaller-text" id="password"></span>
                 <br>
                 Interests: <span class="smaller-text" id="interests"></span>
-                <br>
+                <br><br><br>
+                <input type="text" id="cpass" name="cpass" placeholder="Change Password">
+                <br><br>
+                <input type="button" value="Change" onclick="changePass()">
                 <!-- Saved Charities: <span class="smaller-text" id="charities"></span> -->
             </div>
         </div>

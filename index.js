@@ -121,6 +121,24 @@ app.get('/userInfo', (req, res) => {
     }
 });
 
+app.post('/changePass', (req, res) => {
+    if(!req.session.loggedin) {
+        res.status(404).send('You need to login or create an account!');
+    } else {
+        users.forEach(user => {
+            if (user.email === req.session.username) {
+                user.password = req.body.password;
+            }
+        });
+        fs.writeFile(datafile, JSON.stringify(users), err => {
+            if (err) {
+                console.err(err);
+            }
+        });
+        res.status(200).send(userInfo);
+    }
+});
+
 app.get('/closeAccount', (req, res) => {
     if(!req.session.loggedin) {
         res.status(404).send('You need to login or create an account!');

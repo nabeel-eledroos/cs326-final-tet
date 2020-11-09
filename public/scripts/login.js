@@ -1,9 +1,9 @@
 const __dirname = location.protocol + '//' + location.host;
 
 async function sign_in() {
-    const username = document.getElementById('uname').value,
+    const email = document.getElementById('email').value,
         password = document.getElementById('pword').value;
-    body = {id: username, password: password};
+    body = {id: email, password: password};
     const response = await fetch(__dirname + '/signin', {
         method: 'post',
         body: JSON.stringify(body),
