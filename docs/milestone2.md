@@ -202,7 +202,7 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 
   2. READ
 
-    image: 
+    image: https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/READ.png
 
     The client renders the signin page sent by the server, which gives a user the ability to login. The client will make a POST request with the user's email and password. The format is: 
     
