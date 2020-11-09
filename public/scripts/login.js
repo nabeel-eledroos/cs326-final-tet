@@ -15,7 +15,7 @@ async function sign_in() {
     console.log(response.ok);
     if (response.ok) {
         const reshtml = await response.text();
-        window.location.href = reshtml;
+        window.location.replace(reshtml);
     } else {
         console.log(response.error);
         return;
@@ -23,7 +23,7 @@ async function sign_in() {
 }
 
 function getInterests() {
-    const formInputs = document.forms['signup-form'].getElementsByTagName('form-check-input');
+    const formInputs = document.forms['signup-form'].getElementsByClassName('form-check-input');
     const interests = Array.from(formInputs).reduce((acc, box) => {
             if(box.checked) {
                 acc.push(box.labels[0].innerText);
@@ -35,22 +35,20 @@ function getInterests() {
 }
 
 async function sign_up() {
-    const name = document.getElementById('fullname').value.split(" "),
-        first_name = name[0],
-        last_name = name[1],
+    const name = document.getElementById('fullname').value,
         email = document.getElementById('email').value,
         password = document.getElementById('password').value,
         repassword = document.getElementById('repassword').value;
     if (password != repassword) {
+        //TODO: add pop-up for password mismatch
         console.log("Passwords Don't Match!");
         return;
     }
-    
+
     const interests = getInterests();
     body = {
-        first_name: first_name, 
-        last_name: last_name, 
-        id: email, 
+        name: name,
+        id: email,
         password: password,
         interests: interests,
         charities: []
@@ -65,7 +63,7 @@ async function sign_up() {
 
     if (response.ok) {
         const resHTML = await response.text();
-        window.location = resHTML;
+        window.location.replace(resHTML);
     } else {
         console.log(response.error);
         return;

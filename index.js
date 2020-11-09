@@ -42,11 +42,10 @@ app.route('/signup')
                     return;
                 }
             });
-            
-            const newUser = { 
-                first_name: req.body.first_name, 
-                last_name: req.body.last_name, 
-                email: req.body.id, 
+            console.log(req.body.interests);
+            const newUser = {
+                name: req.body.name,
+                email: req.body.id,
                 password: req.body.password,
                 interests: req.body.interests,
                 charities: req.body.charities
@@ -119,7 +118,7 @@ app.get('/userInfo', (req, res) => {
     }
 });
 
-app.get('closeAccount', (req, res) => {
+app.get('/closeAccount', (req, res) => {
     if(!req.session.loggedin) {
         res.status(404).send('You need to login or create an account!');
     } else {

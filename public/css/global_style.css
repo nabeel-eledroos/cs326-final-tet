@@ -38,12 +38,40 @@ body {
     background-color: #b6b6b6;
 }
 
+#delete-btn {
+    position: absolute;
+    font-family: Poppins;
+    border: 1px solid rgb(170, 0, 0);
+    border-radius: 20px;
+    color: rgb(170, 0, 0);
+    top: 3%;
+    right: 3%;
+}
+
+#delete-btn:hover{
+    background-color: #b6b6b6;
+}
+
+#change-pass-btn {
+    position: absolute;
+    font-family: Poppins;
+    border: 1px solid #503A65;
+    border-radius: 20px;
+    color: #503A65;
+    top: 3%;
+    right: 3%;
+}
+
+#change-pass-btn:hover{
+    background-color: #b6b6b6;
+}
+
 #profile-icon {
     /* this isnt working and im not sure why */
     fill: white; 
 }
 
-#smaller-text {
+.smaller-text {
     font-size: 15px;
 }
 

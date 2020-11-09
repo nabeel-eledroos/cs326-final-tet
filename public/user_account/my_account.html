@@ -10,22 +10,23 @@
         <link rel="stylesheet" type="text/css" href="/css/login_style.css" />
 
         <script src="https://kit.fontawesome.com/4e60f033de.js" crossorigin="anonymous"></script>
+        <script src="/scripts/my_account.js" ></script>
     </head>
     <body>
         <div class="header_img">
             <a href="/app/app.html" id="co-name">charity match</a>
+            <!-- <a href="/signin/sign_in.html" id="signin-btn" class="btn btn-outline-primary btn-lg">Sign In</a> -->
+            <!-- <a href="/signin/sign_in.html" id="delete-btn" class="btn btn-outline-primary btn-lg">Delete Account</a> -->
             <div class="form-container">
-                <h2>John Doe</h2>
+                <h2><span id="name"></span></h2>
                 <br>
-                Username: <span id="smaller-text">idk_username</span>
+                Email: <span class="smaller-text" id="email"></span>
                 <br>
-                Password: <span id="smaller-text">*****</span>
+                Password: <span class="smaller-text" id="password"></span>
                 <br>
-                Email: <span id="smaller-text">john_doe@yahoo.com</span>
+                Interests: <span class="smaller-text" id="interests"></span>
                 <br>
-                Interests: <span id="smaller-text">...</span>
-                <br>
-                Saved Charities: <span id="smaller-text">...</span>
+                <!-- Saved Charities: <span class="smaller-text" id="charities"></span> -->
             </div>
         </div>
 
