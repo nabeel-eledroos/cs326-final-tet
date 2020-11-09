@@ -12,13 +12,26 @@ async function sign_in() {
         }
     });
 
+    console.log(response.ok);
     if (response.ok) {
-        // const resjson = await response.json();
-        window.location.href = '/app/app.html';
+        const reshtml = await response.text();
+        window.location.href = reshtml;
     } else {
         console.log(response.error);
         return;
     }
+}
+
+function getInterests() {
+    const formInputs = document.forms['signup-form'].getElementsByTagName('form-check-input');
+    const interests = Array.from(formInputs).reduce((acc, box) => {
+            if(box.checked) {
+                acc.push(box.labels[0].innerText);
+            }
+            return acc;
+        }, []);
+    console.log(interests);
+    return interests;
 }
 
 async function sign_up() {
@@ -32,7 +45,16 @@ async function sign_up() {
         console.log("Passwords Don't Match!");
         return;
     }
-    body = {first_name: first_name, last_name: last_name, id: email, password: password};
+    
+    const interests = getInterests();
+    body = {
+        first_name: first_name, 
+        last_name: last_name, 
+        id: email, 
+        password: password,
+        interests: interests,
+        charities: []
+    };
     const response = await fetch(__dirname + '/signup', {
         method: 'post',
         body: JSON.stringify(body),
@@ -42,8 +64,8 @@ async function sign_up() {
     });
 
     if (response.ok) {
-        // const resjson = await response.json();
-        window.location.href = '/signup/pick_interests.html';
+        const resHTML = await response.text();
+        window.location = resHTML;
     } else {
         console.log(response.error);
         return;
