@@ -119,6 +119,16 @@ app.get('/userInfo', (req, res) => {
     }
 });
 
+app.get('closeAccount', (req, res) => {
+    if(!req.session.loggedin) {
+        res.status(404).send('You need to login or create an account!');
+    } else {
+        const userInfoIndex = users.findIndex((user) => user.email === req.session.username);
+        users.splice(userInfoIndex, userInfoIndex >= 0 ? 1 : 0);
+        res.redirect('/logout');
+    }
+});
+
 app.get('/topStories', (req, res) => {
     const resData = topStories.results;
     res.json({ topStoriesResults: resData });
