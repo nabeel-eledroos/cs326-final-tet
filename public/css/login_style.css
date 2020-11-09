@@ -15,15 +15,15 @@
     min-width:100%;
 }
 
-form#interests-form fieldset label {
+form#signup-form fieldset label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-size: 16px;
     float: left;
     width: 30%;
-    margin-left: 18px;
-  }
+    margin-left:2rem
+}
   
-form#interests-form fieldset label input[type='checkbox'] {
+form#signup-form fieldset label input[type='checkbox'] {
     margin-left: -18px;
 }
