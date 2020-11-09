@@ -188,7 +188,7 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 ### Front End Implementation with CRUD
   1. CREATE
 
-    image: 
+    image: https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/CREATE.png
 
     The client renders the signup page which allows the user to create an account. The account information supplied will be sent to the server for them to be added if they account does not already exist under that email. The client sends the info in a POST request to the server, in the format: 
                         {
