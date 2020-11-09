@@ -18,14 +18,23 @@
             <a href="/signin/sign_in.html" id="signin-btn" class="btn btn-outline-primary btn-lg">Sign In</a>
             <div class ="form-container">
                 <h2>Get Started Today</h1><br><br>
-                <form>
+                <form id="signup-form">
                     <input type="text" id="fullname" name="fullname" placeholder="Full name"><br><br>
 
                     <input type="text" id="email" name="email" placeholder="Email"><br><br>
 
                     <input type="text" id="password" name="password" placeholder="Password"><br><br>
 
-                    <input type="text" id="repassword" name="repassword" placeholder="Re-enter Password"><br><br><br>
+                    <input type="text" id="repassword" name="repassword" placeholder="Re-enter Password"><br><br>
+                    <h1>Pick Interests</h1>
+                    <fieldset class="checkboxes">
+                        <label class="form-check-label"><input class="form-check-input" type="checkbox" id="cb1" value="checked"><span>coronavirus</span></label>
+                        <label class="form-check-label"><input class="form-check-input" type="checkbox" id="cb12" value="checked"><span>pollution</span></label>
+                        <label class="form-check-label"><input class="form-check-input" type="checkbox" id="cb1" value="checked"><span>deforestation</span></label>
+                        <label class="form-check-label"><input class="form-check-input" type="checkbox" id="cb1" value="checked"><span>climate change</span></label>
+                        <label class="form-check-label"><input class="form-check-input" type="checkbox" id="cb1" value="checked"><span>food security</span></label>
+                        <label class="form-check-label"><input class="form-check-input" type="checkbox" id="cb1" value="checked"><span>disaster relief</span></label>
+                    </fieldset>
                     <input type="button" value="Next" onclick="sign_up()">
                 </form>
             </div>
