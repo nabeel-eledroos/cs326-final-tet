@@ -125,6 +125,11 @@ app.get('closeAccount', (req, res) => {
     } else {
         const userInfoIndex = users.findIndex((user) => user.email === req.session.username);
         users.splice(userInfoIndex, userInfoIndex >= 0 ? 1 : 0);
+        fs.writeFile(datafile, JSON.stringify(users), err => {
+            if (err) {
+                console.err(err);
+            }
+        });
         res.redirect('/logout');
     }
 });
