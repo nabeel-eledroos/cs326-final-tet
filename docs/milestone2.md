@@ -104,13 +104,131 @@ Example response:
 
 See here for more: [Charity Navigator API Documentation](https://charity.3scale.net/docs/data-api/reference)
 
-## Front End Implementation
+### Charity-Match API (Our site)
+
+1. Getting homepage:
+
+  Request: `HTTP GET https://charity--match.herokuapp.com/`
+
+  Accessing the website sends a GET request to the server. The server handles this under the '/' request, which sends the client the landing page to load.
+
+2. Signing Up with Charity Match
+
+  Request: `HTTP GET/POST https://charity--match.herokuapp.com/signup`
+
+  The GET request, https://charity--match.herokuapp.com/signup, returns the page to load. 
+  
+  The POST request to https://charity--match.herokuapp.com/signup adds a user to the database. The request is formatted as so:
+                          { 
+                            first_name: req.body.first_name, 
+                            last_name: req.body.last_name, 
+                            id: req.body.id, 
+                            password: req.body.password,
+                            interests: req.body.interests,
+                            charities: req.body.charities
+                          };
+  }
+  On success, the server redirects the user to https://https://charity--match.herokuapp.com/signin where they server will respond with the signin page.
+
+3. Signing into Charity Match Account: 
+
+  Request: `HTTP GET/POST https://https://charity--match.herokuapp.com/signin`
+
+  The GET request is handled by the server responding with the page to load.
+  
+  The POST request to https://https://charity--match.herokuapp.com/signin reads from the database to see if the user has an account. On success, the server redirects the client to https://https://charity--match.herokuapp.com/app, where the server responds with the user's personal webpage. On failure, the server sends a 400 response indicating what went wrong.
+
+4. User's Charity-Match Home Page:
+
+  Request: `HTTP GET https://https://charity--match.herokuapp.com/app`
+
+  The client is redirected to make the GET request for the server to return the user's personal homepage. On failure, the server sends to the client a 400 status indicating a user has not been signed in. On load of the user's page, the client makes a GET request to the server responding with JSON of of the top news and most popular stories from the New York Times API, as described above.
+
+5. Logging Out:
+
+  Request: `HTTP GET https://https://charity--match.herokuapp.com/logout`
+
+  The GET request has the server destroy the user session and redirecting them to https://https://charity--match.herokuapp.com/, where the server will send them back the landing page.
+
+6. User's Account Page: 
+
+  Request: `HTTP GET https://https://charity--match.herokuapp.com/account`
+
+  The GET request returns the user's information as JSON. The information is retrieved based on the user that is signed in. The information is structured as:
+                        {
+                          "first_name": Jeff,
+                          "last_name": Jon,
+                          "email":"MyNameisJeff@hotmail.com",
+                          "password":"BT0Wr7sMUwmK9vo",
+                          "interests": ["deforestation", "disasterRelief"],
+                          "charities": ["GoFundMe", "Wounded Warrior"]
+                        }
+
+7. Close User Account: 
+  
+  Request: `HTTP GET https://https://charity--match.herokuapp.com/account` 
+
+  The server handles this by checking to see if the user that wants to close the account is logged in. If so, it finds the user's information, and deletes it from the database, then redirects the client to https://https://charity--match.herokuapp.com/logout.
+
+8. Getting Top Stories:
+
+  Request: `HTTP GET  https://https://charity--match.herokuapp.com/topStories`
+
+  The server reaches out to the New York Times API by making a GET request to the API, as described above. The data retrieved will be JSON which gets sent back to the client as JSON.
+
+9. Getting Most Popular Stories: 
+  Request: `HTTP GET  https://https://charity--match.herokuapp.com/mostPopular`
+
+  The server reaches out to the New York Times API, making a get request to the Most Popular API, as described above. The data retrieved will be JSON, in the format described prior, and be sent to the client as JSON.
+
+10. Any other request:
+
+  The server responds with a status of 404 and a message.
+
+### Front End Implementation with CRUD
+  1. CREATE
+
+    image: 
+
+    The client renders the signup page which allows the user to create an account. The account information supplied will be sent to the server for them to be added if they account does not already exist under that email. The client sends the info in a POST request to the server, in the format: 
+                        {
+                          "first_name": Jeff,
+                          "last_name": Jon,
+                          "email":"MyNameisJeff@hotmail.com",
+                          "password":"BT0Wr7sMUwmK9vo",
+                          "interests": ["deforestation", "disasterRelief"],
+                          "charities": ["GoFundMe", "Wounded Warrior"]
+                        }
+
+  2. READ
+
+    image: 
+
+    The client renders the signin page sent by the server, which gives a user the ability to login. The client will make a POST request with the user's email and password. The format is: 
+    
+                        {
+                          "id": "username", 
+                          "password": "password"
+                        };
+
+    The id is the user's email, which is also their username. The server will take this info and read from the database to see if the user exists. If so, the server will respond with webpage specific to the user.
+
+  3. UPDATE
+
+    image: 
 
 
-## Deployment
+  4. DELETE
+
+    image:
+
+
+
+
+### Deployment
 
 Heroku: [https://charity--match.herokuapp.com](https://charity--match.herokuapp.com)
 
 
-## Division of Labor
+### Division of Labor
 
