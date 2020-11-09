@@ -67,7 +67,7 @@ app.route('/signup')
  */
 
 app.get('/signin', (req, res) => {
-        res.send('../signin/sign_in.html')
+        res.send('../signin/sign_in.html');
 });
 app.post('/signin', (req, res) => {
     if(!req.body.id || !req.body.password) {
@@ -98,13 +98,16 @@ app.get('/app', (req, res) => {
     }
 });
 
+app.get('/index', (req, res) => {
+    res.send('../index.html');
+});
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if(err) {
             return console.log(err);
         }
     });
-    res.redirect('/');
+    res.redirect('/index');
 });
 
 app.get('/userInfo', (req, res) => {

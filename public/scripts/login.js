@@ -12,7 +12,6 @@ async function sign_in() {
         }
     });
 
-    console.log(response.ok);
     if (response.ok) {
         const reshtml = await response.text();
         window.location.replace(reshtml);
@@ -30,7 +29,6 @@ function getInterests() {
             }
             return acc;
         }, []);
-    console.log(interests);
     return interests;
 }
 

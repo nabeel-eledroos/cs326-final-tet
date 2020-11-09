@@ -16,9 +16,6 @@ async function getInfo() {
     }
 }
 
-
-
-
 window.addEventListener('load', async () => {
     const account_info = await getInfo();
     const { name, email, password, interests, charities } = account_info[0];
@@ -29,3 +26,15 @@ window.addEventListener('load', async () => {
     document.getElementById('interests').innerText = interests.length > 0 ? interests : "no interests :(";
     console.log(account_info);
 });
+
+async function deleteAcct() {
+    const response = await fetch(__dirname + '/closeAccount');
+
+    if (response.ok) {
+        const reshtml = await response.text();
+        window.location.replace(reshtml);
+    } else {
+        console.log(response.error);
+        return;
+    }
+}
