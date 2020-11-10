@@ -246,3 +246,6 @@ Heroku: [https://charity--match.herokuapp.com](https://charity--match.herokuapp.
 
 ### Division of Labor
 
+Jake - 
+
+Nabeel - Worked on external API documentation, connected sign-in, sign-up, and account pages to backend, rendered account page, cleaned up html and css on many pages, deployed on Heroku, and small changes to server including adding an endpoint
