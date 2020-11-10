@@ -222,7 +222,7 @@ The id is the user's email. The server will take this info and read from the dat
 
   3. UPDATE
 
-UPDATE Part 1: ![UPDATE Part 1](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/UPDATE1.png)
+UPDATE Part 1: ![UPDATE Part 1] (https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/UPDATE1.PNG)
 
 When the client heads to the profile page, they can see their account information. One of the things they can do here is change their password. When they type in a new password and press the button, a POST request is sent, in the format:
       {
