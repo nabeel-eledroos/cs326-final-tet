@@ -135,7 +135,7 @@ app.post('/changePass', (req, res) => {
                 console.err(err);
             }
         });
-        res.status(200).send(userInfo);
+        res.sendStatus(200);
     }
 });
 

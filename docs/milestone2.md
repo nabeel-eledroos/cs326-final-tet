@@ -164,36 +164,43 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
                           "charities": ["GoFundMe", "Wounded Warrior"]
                         }
 
-7. Close User Account: 
-  
+7. Change User Password:
+
+  Request: `HTTP POST https://https://charity--match.herokuapp.com/changePass`
+
+  Body: `{ password: new_password }`
+
+  The server handles this by checking to see if the associated user is logged in. If so, it finds the correct user in the database, and updates their password to the one in the request body, and then returns status 200.
+
+8. Close User Account: 
+
   Request: `HTTP GET https://https://charity--match.herokuapp.com/account` 
 
   The server handles this by checking to see if the user that wants to close the account is logged in. If so, it finds the user's information, and deletes it from the database, then redirects the client to https://https://charity--match.herokuapp.com/logout.
 
-8. Getting Top Stories:
+9. Getting Top Stories:
 
   Request: `HTTP GET  https://https://charity--match.herokuapp.com/topStories`
 
   The server reaches out to the New York Times API by making a GET request to the API, as described above. The data retrieved will be JSON which gets sent back to the client as JSON.
 
-9. Getting Most Popular Stories: 
+10. Getting Most Popular Stories: 
   Request: `HTTP GET  https://https://charity--match.herokuapp.com/mostPopular`
 
   The server reaches out to the New York Times API, making a get request to the Most Popular API, as described above. The data retrieved will be JSON, in the format described prior, and be sent to the client as JSON.
 
-10. Any other request:
+11. Any other request:
 
   The server responds with a status of 404 and a message.
 
 ### Front End Implementation with CRUD
   1. CREATE
 
-    image: https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/CREATE.png
+![CREATE](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/CREATE.png)
 
     The client renders the signup page which allows the user to create an account. The account information supplied will be sent to the server for them to be added if they account does not already exist under that email. The client sends the info in a POST request to the server, in the format: 
                         {
-                          "first_name": Jeff,
-                          "last_name": Jon,
+                          "name": Jeff Jon,
                           "email":"MyNameisJeff@hotmail.com",
                           "password":"BT0Wr7sMUwmK9vo",
                           "interests": ["deforestation", "disasterRelief"],
@@ -202,25 +209,32 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 
   2. READ
 
-    image: https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/READ.png
+![READ](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/READ.png)
 
-    The client renders the signin page sent by the server, which gives a user the ability to login. The client will make a POST request with the user's email and password. The format is: 
-    
+    The client renders the signin page sent by the server, which gives a user the ability to login. The client will make a POST request with the user's email and password. The format is:
+
                         {
-                          "id": "username", 
+                          "id": "email",
                           "password": "password"
                         };
 
-    The id is the user's email, which is also their username. The server will take this info and read from the database to see if the user exists. If so, the server will respond with webpage specific to the user.
+    The id is the user's email. The server will take this info and read from the database to see if the user exists. If so, the server will respond with webpage specific to the user.
 
   3. UPDATE
 
-    image: 
+UPDATE Part 1: ![UPDATE Part 1](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/UPDATE1.png)
 
+    When the client heads to the profile page, they can see their account information. One of the things they can do here is change their password. When they type in a new password and press the button, a POST request is sent, in the format:
+                        {
+                          "password": "new_password"
+                        };
+    Which is then updated in the database, and re-rendered on screen, as seen below.
+
+UPDATE Part 2: ![UPDATE Part 2](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/UPDATE2.png)
 
   4. DELETE
 
-    image:
+    Lastly, the client can also delete their account, with the "Delete Account" button on the top right of the account page. This sends a GET request to the database, which finds the user associated with the current session, and deletes their information from the database.
 
 
 
