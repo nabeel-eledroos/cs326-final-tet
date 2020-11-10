@@ -116,26 +116,28 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 
   Request: `HTTP GET/POST https://charity--match.herokuapp.com/signup`
 
-  The GET request, https://charity--match.herokuapp.com/signup, returns the page to load. 
-  
+  The GET request, https://charity--match.herokuapp.com/signup, returns the page to load.
+
   The POST request to https://charity--match.herokuapp.com/signup adds a user to the database. The request is formatted as so:
-                          { 
-                            first_name: req.body.first_name, 
-                            last_name: req.body.last_name, 
-                            id: req.body.id, 
-                            password: req.body.password,
-                            interests: req.body.interests,
-                            charities: req.body.charities
-                          };
-  }
+
+    {
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      id: req.body.id,
+      password: req.body.password,
+      interests: req.body.interests,
+      charities: req.body.charities
+    };
+
+
   On success, the server redirects the user to https://https://charity--match.herokuapp.com/signin where they server will respond with the signin page.
 
-3. Signing into Charity Match Account: 
+3. Signing into Charity Match Account:
 
   Request: `HTTP GET/POST https://https://charity--match.herokuapp.com/signin`
 
   The GET request is handled by the server responding with the page to load.
-  
+
   The POST request to https://https://charity--match.herokuapp.com/signin reads from the database to see if the user has an account. On success, the server redirects the client to https://https://charity--match.herokuapp.com/app, where the server responds with the user's personal webpage. On failure, the server sends a 400 response indicating what went wrong.
 
 4. User's Charity-Match Home Page:
@@ -155,14 +157,15 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
   Request: `HTTP GET https://https://charity--match.herokuapp.com/account`
 
   The GET request returns the user's information as JSON. The information is retrieved based on the user that is signed in. The information is structured as:
-                        {
-                          "first_name": Jeff,
-                          "last_name": Jon,
-                          "email":"MyNameisJeff@hotmail.com",
-                          "password":"BT0Wr7sMUwmK9vo",
-                          "interests": ["deforestation", "disasterRelief"],
-                          "charities": ["GoFundMe", "Wounded Warrior"]
-                        }
+
+    {
+      "first_name": Jeff,
+      "last_name": Jon,
+      "email":"MyNameisJeff@hotmail.com",
+      "password":"BT0Wr7sMUwmK9vo",
+      "interests": ["deforestation", "disasterRelief"],
+      "charities": ["GoFundMe", "Wounded Warrior"]
+    }
 
 7. Change User Password:
 
@@ -199,13 +202,14 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 ![CREATE](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/CREATE.png)
 
 The client renders the signup page which allows the user to create an account. The account information supplied will be sent to the server for them to be added if they account does not already exist under that email. The client sends the info in a POST request to the server, in the format:
-                        {
-                          "name": Jeff Jon,
-                          "email":"MyNameisJeff@hotmail.com",
-                          "password":"BT0Wr7sMUwmK9vo",
-                          "interests": ["deforestation", "disasterRelief"],
-                          "charities": ["GoFundMe", "Wounded Warrior"]
-                        }
+
+    {
+      "name": Jeff Jon,
+      "email":"MyNameisJeff@hotmail.com",
+      "password":"BT0Wr7sMUwmK9vo",
+      "interests": ["deforestation", "disasterRelief"],
+      "charities": ["GoFundMe", "Wounded Warrior"]
+    }
 
   2. READ
 
@@ -224,10 +228,7 @@ The id is the user's email. The server will take this info and read from the dat
 
 UPDATE Part 1: ![UPDATE Part 1](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/UPDATE1.PNG)
 
-When the client heads to the profile page, they can see their account information. One of the things they can do here is change their password. When they type in a new password and press the button, a POST request is sent, in the format:
-      {
-        "password": "new_password"
-      };
+When the client heads to the profile page, they can see their account information. One of the things they can do here is change their password. When they type in a new password and press the button, a POST request is sent, in the format: `{ "password": "new_password" };`
 Which is then updated in the database, and re-rendered on screen, as seen below.
 
 UPDATE Part 2: ![UPDATE Part 2](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/UPDATE2.png)
