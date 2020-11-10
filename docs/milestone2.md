@@ -247,6 +247,6 @@ Heroku: [https://charity--match.herokuapp.com](https://charity--match.herokuapp.
 
 ### Division of Labor
 
-Jake - 
+Jake - Wrote internal API endpoints for: GET /, GET/POST /signup, GET/POST /signin, GET /app, GET /logout, GET /userINFO, GET /closeAccount, GET /topStories, and GET /mostPopular. Wrote documentation for internal API. Implemented sessions for user login. Wrote font-end for app page and connected to backend.
 
 Nabeel - Worked on external API documentation, connected sign-in, sign-up, and account pages to backend, rendered account page, cleaned up html and css on many pages, deployed on Heroku, and small changes to server including adding an endpoint
