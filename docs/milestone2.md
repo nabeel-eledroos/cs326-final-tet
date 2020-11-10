@@ -198,7 +198,7 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 
 ![CREATE](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/CREATE.png)
 
-    The client renders the signup page which allows the user to create an account. The account information supplied will be sent to the server for them to be added if they account does not already exist under that email. The client sends the info in a POST request to the server, in the format: 
+The client renders the signup page which allows the user to create an account. The account information supplied will be sent to the server for them to be added if they account does not already exist under that email. The client sends the info in a POST request to the server, in the format:
                         {
                           "name": Jeff Jon,
                           "email":"MyNameisJeff@hotmail.com",
@@ -211,30 +211,30 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 
 ![READ](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/READ.png)
 
-    The client renders the signin page sent by the server, which gives a user the ability to login. The client will make a POST request with the user's email and password. The format is:
+The client renders the signin page sent by the server, which gives a user the ability to login. The client will make a POST request with the user's email and password. The format is:
 
-                        {
-                          "id": "email",
-                          "password": "password"
-                        };
+    {
+      "id": "email",
+      "password": "password"
+    };
 
-    The id is the user's email. The server will take this info and read from the database to see if the user exists. If so, the server will respond with webpage specific to the user.
+The id is the user's email. The server will take this info and read from the database to see if the user exists. If so, the server will respond with webpage specific to the user.
 
   3. UPDATE
 
 UPDATE Part 1: ![UPDATE Part 1](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/UPDATE1.png)
 
-    When the client heads to the profile page, they can see their account information. One of the things they can do here is change their password. When they type in a new password and press the button, a POST request is sent, in the format:
-                        {
-                          "password": "new_password"
-                        };
-    Which is then updated in the database, and re-rendered on screen, as seen below.
+When the client heads to the profile page, they can see their account information. One of the things they can do here is change their password. When they type in a new password and press the button, a POST request is sent, in the format:
+      {
+        "password": "new_password"
+      };
+Which is then updated in the database, and re-rendered on screen, as seen below.
 
 UPDATE Part 2: ![UPDATE Part 2](https://github.com/nabeel-eledroos/cs326-final-tet/blob/master/CRUD%20Screenshots/UPDATE2.png)
 
   4. DELETE
 
-    Lastly, the client can also delete their account, with the "Delete Account" button on the top right of the account page. This sends a GET request to the database, which finds the user associated with the current session, and deletes their information from the database.
+Lastly, the client can also delete their account, with the "Delete Account" button on the top right of the account page. This sends a GET request to the database, which finds the user associated with the current session, and deletes their information from the database.
 
 
 
