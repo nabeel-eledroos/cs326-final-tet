@@ -127,7 +127,9 @@ app.post('/changePass', (req, res) => {
     } else {
         users.forEach(user => {
             if (user.email === req.session.username) {
-                user.password = req.body.password;
+                if (user.password === req.body.current_password) {
+                    user.password = req.body.new_password;
+                }
             }
         });
         fs.writeFile(datafile, JSON.stringify(users), err => {
@@ -135,7 +137,7 @@ app.post('/changePass', (req, res) => {
                 console.err(err);
             }
         });
-        res.sendStatus(200);
+        res.status(200).send('./my_account.html');
     }
 });
 

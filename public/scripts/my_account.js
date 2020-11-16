@@ -19,7 +19,7 @@ async function render() {
     const account_info = await getInfo();
     const { name, email, password, interests, charities } = account_info[0];
 
-    document.getElementById('name').innerText = name ? name : "no name :(";
+    document.getElementById('name').innerText = name ? name : "no name";
     document.getElementById('email').innerText = email;
     document.getElementById('password').innerText = password;
     document.getElementById('interests').innerText = interests.length > 0 ? interests : "no interests :(";
@@ -42,7 +42,7 @@ async function deleteAcct() {
 }
 
 async function changePass() {
-    body = { password: document.getElementById('cpass').value };
+    body = { current_password: document.getElementById('cpass').value, new_password: document.getElementById('npass').value };
     const response = await fetch(__dirname + '/changePass', {
         method: 'post',
         body: JSON.stringify(body),
@@ -52,7 +52,7 @@ async function changePass() {
     });
     if (response.ok) {
         const reshtml = await response.text();
-        document.getElementById('cpass').value = "";
+        window.location.replace(reshtml);
         render();
     } else {
         console.log(response.error);

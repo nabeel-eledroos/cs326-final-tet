@@ -147,10 +147,11 @@ input[type="text"] {
     color: #3C2A4D;
 }
 
-input[type=button] {
+.blue-button {
     width:60%;
     background: #95ADBE;
     border: 0px;
     border-radius: 8px;
+    padding: 5px 10px;
     color: white;
 }

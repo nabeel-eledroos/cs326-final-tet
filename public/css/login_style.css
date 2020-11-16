@@ -27,3 +27,8 @@ form#signup-form fieldset label {
 form#signup-form fieldset label input[type='checkbox'] {
     margin-left: -18px;
 }
+
+a.blue-button:hover {
+    text-decoration: none;
+    color: gray;
+}
