@@ -15,6 +15,10 @@
     min-width:100%;
 }
 
+#app-references {
+    width: 250px;
+}
+
 .trending-container {
     margin-top: 10rem;
 }
