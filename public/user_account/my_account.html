@@ -15,7 +15,9 @@
     <body>
         <div class="header_img">
             <a href="/app/app.html" id="co-name">charity match</a>
-            <input type="submit" value="Delete Account" id="delete-btn" class="btn btn-outline-primary btn-lg" onclick="deleteAcct()">
+            <form action="/closeAccount" method="GET">
+                <input type="submit" value="Delete Account" id="delete-btn" class="btn btn-outline-primary btn-lg">
+            </form>
             <div class="form-container">
                 <h2><span id="name"></span></h2>
                 <br>
