@@ -4,21 +4,13 @@ async function sign_in() {
     const email = document.getElementById('email').value,
         password = document.getElementById('pword').value;
     body = {id: email, password: password};
-    const response = await fetch(__dirname + '/signin', {
+    await fetch(__dirname + '/signin', {
         method: 'post',
         body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json'
         }
     });
-
-    if (response.ok) {
-        const reshtml = await response.text();
-        window.location.replace(reshtml);
-    } else {
-        console.log(response.error);
-        return;
-    }
 }
 
 function getInterests() {
@@ -60,8 +52,7 @@ async function sign_up() {
     });
 
     if (response.ok) {
-        const resHTML = await response.text();
-        window.location.replace(resHTML);
+        window.location.href = __dirname + '/signin';
     } else {
         console.log(response.error);
         return;
