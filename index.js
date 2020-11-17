@@ -6,6 +6,7 @@ const express = require('express');
 const expressSession = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 8000;
 app.use(express.static('public'));
@@ -242,40 +243,60 @@ app.get('/topStories', (req, res) => {
     res.json({ topStoriesResults: resData });
 });
 
-app.get('/mostPopular', (req, res) => {
-    const resData = mostPopular.results;
-    res.json({ mostPopularResults: resData });
+// app.get('/mostPopular', (req, res) => {
+//     const resData = mostPopular.results;
+//     res.json({ mostPopularResults: resData });
+// });
+
+/**
+ * Get Top articles from NYTimes API, according to specific category
+ */
+app.get('/mostPopular', async function(req, res) {
+    try {
+        // For now, getting articles on the home page.
+        const path = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${config._key}`;
+        fetch(path)
+        .then(res => res.json())
+        .then(data => {
+            res.send(JSON.stringify(data));
+        })
+        .catch(err => {
+            res.send(err);
+        });
+    } catch(e) {
+        res.status = 405;
+        res.send({
+            'status': e
+        });
+    }
+});
+
+/**
+ * Get Most Popular articles from NYTimes API
+ */
+app.get('/mostPopular', async function(req, res) {
+    try {
+        const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${config._key}`;
+        fetch(path)
+        .then(res => res.json())
+        .then(data => {
+            res.send(JSON.stringify(data));
+        })
+        .catch(err => {
+            res.send(err);
+        });
+    } catch(e) {
+        res.status = 405;
+        res.send({
+            'status': e
+        });
+    }
 });
 
 app.get('*', (req, res) => {
     res.status(404);
     res.send('request does not exist.');
 });
-
-/**
- * Respond to client making calls for info from NYTimes API 
- * CURRENTLY BROKEN
- */
-// app.post('/mostPopular', async function(req, res) {
-//     const response = getMostPopular();
-//     res.send(response);
-//     try {
-//         const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${_key}`;
-//         const response = await fetch(path);
-
-//         if(response.ok) {
-//             const pop_JSON = await response.json();
-//             res.send(JSON.stringify(pop_JSON)); 
-//         } else {
-//             throw new Error(response.statusText);
-//         }
-//     } catch(e) {
-//         res.status = 405;
-//         res.send({
-//             'status': e
-//         });
-//     }
-// });
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

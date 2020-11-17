@@ -33,10 +33,16 @@ async function getMostPopular() {
     }
 }
 
+// function render {
+
+// }
+
 window.addEventListener('load', async () => {
     const topStories = await getTopStories();
     console.log(topStories);
-    
+
     const mostPopular = await getMostPopular();
     console.log(mostPopular);
+
+    // render();
 });
