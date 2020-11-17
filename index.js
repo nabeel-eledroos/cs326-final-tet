@@ -1,48 +1,117 @@
-const express = require('express');
-const app = express();
-const session = require('express-session');
-const path = require('path');
-const fs = require('fs');
+'use strict';
 
+require('dotenv').config();
+
+const express = require('express');
+const expressSession = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const app = express();
+const port = process.env.PORT || 8000;
+app.use(express.static('public'));
+
+const fs = require('fs');
 const datafile = './fake_data.json';
 const users = require(datafile);
 const mostPopular = require('./mostPop.json');
 const topStories = require('./topStories.json');
+const config = require("./config.json");
+const { RSA_NO_PADDING } = require('constants');
 
-const port = process.env.PORT || 8000;
+const session = {
+    secret: process.env.SECRET || config.SECRET,
+    resave: false,
+    saveUninitialized: false
+};
 
-app.use(express.static('public'));
+// Strategy for user authentication
+const strategy = new LocalStrategy(
+    async(id, password, done) => {
+        if(!findUser(id)) {
+            return done(null, false, { 'message': 'Wrong username' });
+        }
+        if(!validatePassword(id, password)) {
+            await new Promise((r) => setTimeout(r, 2000));
+            return done(null, false, { 'message': 'Wrong password' });
+        }
+        return done(null, id);
+    }
+);
 
-app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-}));
-app.use(express.json());
+app.use(expressSession(session));
+passport.use(strategy);
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get('/', (req, res) => {
-    res.send('index.html');
+passport.serializeUser((user, done) => {
+    done(null, user);
 });
+
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ 'extended': true }));
+
+// error handler that sends why request failed.
+function signUpErrHandler(err, req, res, next) {
+    res.send({error: err});
+}
+app.use(signUpErrHandler);
+
+// find if user exists. returns true if so. 
+// TODO: Wire for db
+function findUser(email) {
+    return users.some(user => user.email === email);
+}
+
+// find if user exists, checks password, returns true if correct password
+// TODO: Wire for db
+function validatePassword(username, password) {
+    if(!findUser(username)) {
+        return false;
+    } else {
+        return users.some(user => {
+            if(user.email === username) {
+                return user.password === password;
+            }
+            return false;
+        });
+    }
+}
+
+// adds user to database if they do not exist already
+function addUser(user) {
+    if(findUser(user.email)) {
+        return false;
+    } else {    
+        users.push(user);
+        fs.writeFile(datafile, JSON.stringify(users), err => {
+            if (err) {
+                console.err(err);
+            }
+        });
+        return true;
+    }
+}
+
+app.get('/', (req, res) => res.sendFile('/index.html'));
+
+/******User signup requests******/
+// Sends back html file to load
+app.get('/signup', (req, res) =>
+        res.sendFile('/public/signup/sign_up.html', 
+                    { 'root': __dirname }));
 
 /**
  * Takes post request from client signup and adds them to the user list.
  */
-app.route('/signup')
-    .get((req, res) => {
-        res.send('signup.html');
-    })
-    .post((req, res) => {
+app.post('/signup', 
+    (req, res, next) => {
         if(!req.body.id || !req.body.password) {
-            res.status(400).send("Invalid Details!");
-            return;
+            next('User Credentials are blank!');
         } else {
-            users.filter((user) => {
-                if(user.email === req.body.id) {
-                    res.status(400).send("Account already exists under this email.");
-                    return;
-                }
-            });
-            console.log(req.body.interests);
             const newUser = {
                 name: req.body.name,
                 email: req.body.id,
@@ -50,111 +119,123 @@ app.route('/signup')
                 interests: req.body.interests,
                 charities: req.body.charities
             };
+            if(addUser(newUser)) {
+                res.send('success');
+            } else {
+                next('An account already exists under this email!');
+            }
+        }
+    });
 
-            users.push(newUser);
+/******User signin requests******/
+// Checks if user is authenticated, if so calls next to do next action.
+// If not, the error handler is called.
+function checkLoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        next();
+    } else {
+        next('User must log in first!');
+    }
+}
+
+// Request for sign in page. Sends html to load
+app.get('/signin',
+    (req, res) =>  res.sendFile('/public/signin/sign_in.html', { 'root': __dirname }));
+
+// Request to sign in, redirects to app on success, back to signin on failure
+app.post('/signin',
+        passport.authenticate('local', {
+            'successRedirect' : '/private',
+            'failureRedirect' : '/signin'
+        }));
+
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
+
+app.get('/private',
+    checkLoggedIn,
+    (req, res) => {
+        res.redirect('/private/' + req.user);
+    });
+
+app.get('/private/:userID/',
+    checkLoggedIn,
+    (req, res) => {
+        if(req.params.userID === req.user) {
+            res.sendFile(__dirname + '/public/app/app.html')
+        }
+    }
+);
+
+app.get('/my_account', 
+    checkLoggedIn,
+    (req, res) => res.redirect('/public/' + req.user + 'my_account'));
+
+app.get('/private/:userID/my_account', 
+    (req, res) => res.sendFile(__dirname + '/public/user_account/my_account.html'));
+
+app.get('/userInfo', 
+    checkLoggedIn, 
+    (req, res) => res.redirect('/private/' + req.user + '/userInfo'))
+
+app.get('/private/:userID/userInfo',
+    checkLoggedIn,
+    (req, res) => {
+        const userInfo = users.filter((user) => {
+            return user.email === req.user;
+        });
+        res.status(200).send(userInfo);
+    }
+);
+
+app.get('/changePassPage', 
+    checkLoggedIn,
+    (req, res) => res.redirect('/private/' + req.user + '/change')
+);
+
+app.get('/private/:userID/change',
+    checkLoggedIn,
+    (req, res) => res.sendFile(__dirname + '/public/user_account/change_pass.html'));
+
+app.post('/changePass', 
+    checkLoggedIn,
+    (req, res, next) => {
+        users.forEach(user => {
+            if (user.email === req.user) {
+                if (user.password === req.body.cpass) {
+                    user.password = req.body.npass;
+                }
+            }
+        });
+        fs.writeFile(datafile, JSON.stringify(users), err => {
+            if (err) {
+                console.err(err);
+                next(err);
+            }
+        });
+        res.redirect('/signin')
+    });
+
+app.get('/closeAccount', 
+    checkLoggedIn, 
+    (req, res) => res.redirect('/private/' + req.user + '/closeAccount'));
+
+app.get('/private/:userID/closeAccount', 
+    checkLoggedIn, 
+    (req, res) => {
+        if(req.params.userID === req.user) {
+            const userInfoIndex = users.findIndex((user) => user.email === req.user);
+            users.splice(userInfoIndex, userInfoIndex >= 0 ? 1 : 0);
             fs.writeFile(datafile, JSON.stringify(users), err => {
                 if (err) {
                     console.err(err);
                 }
             });
-            res.redirect('/signin');
         }
-    });
-
-/**
- * Takes post request from client signin and checks info to see if user. If login credentials are valid
- * it sends them to the app html
- */
-
-app.get('/signin', (req, res) => {
-        res.send('../signin/sign_in.html');
-});
-app.post('/signin', (req, res) => {
-    if(!req.body.id || !req.body.password) {
-        res.status(400).send("Username and/or Password empty!");
-    } else {
-        const loggedInUser = users.filter((user) => {
-            if(user.email === req.body.id && user.password === req.body.password) {
-                req.session.loggedin = true;
-                req.session.username = user.email;
-                return true;
-            } else {
-                return false;
-            }
-        });
-        if(!loggedInUser) {
-            res.status(400).send('Invalid Username and/or Password!');
-        } else {
-            res.redirect('/app');
-        }
-    }
-});
-
-app.get('/app', (req, res) => {
-    if(req.session.loggedin) {
-        res.send('../app/app.html');
-    } else {
-        res.status(400).send('Please login to view this page!');
-    }
-});
-
-app.get('/index', (req, res) => {
-    res.send('../index.html');
-});
-app.get('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if(err) {
-            return console.log(err);
-        }
-    });
-    res.redirect('/index');
-});
-
-app.get('/userInfo', (req, res) => {
-    if(!req.session.loggedin) {
-        res.status(404).send('You need to login or create an account!');
-    } else {
-        const userInfo = users.filter((user) => {
-            return user.email === req.session.username;
-        });
-        res.status(200).send(userInfo);
-    }
-});
-
-app.post('/changePass', (req, res) => {
-    if(!req.session.loggedin) {
-        res.status(404).send('You need to login or create an account!');
-    } else {
-        users.forEach(user => {
-            if (user.email === req.session.username) {
-                if (user.password === req.body.current_password) {
-                    user.password = req.body.new_password;
-                }
-            }
-        });
-        fs.writeFile(datafile, JSON.stringify(users), err => {
-            if (err) {
-                console.err(err);
-            }
-        });
-        res.status(200).send('./my_account.html');
-    }
-});
-
-app.get('/closeAccount', (req, res) => {
-    if(!req.session.loggedin) {
-        res.status(404).send('You need to login or create an account!');
-    } else {
-        const userInfoIndex = users.findIndex((user) => user.email === req.session.username);
-        users.splice(userInfoIndex, userInfoIndex >= 0 ? 1 : 0);
-        fs.writeFile(datafile, JSON.stringify(users), err => {
-            if (err) {
-                console.err(err);
-            }
-        });
         res.redirect('/logout');
-    }
-});
+    });
 
 app.get('/topStories', (req, res) => {
     const resData = topStories.results;
