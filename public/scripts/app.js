@@ -39,6 +39,22 @@ async function getMostPopular() {
     }
 }
 
+async function getCharities() {
+    try {
+        const response = await fetch(__dirname + '/charities');
+
+        if(response.ok) {
+            const charitiesJSON = await response.json();
+            return charitiesJSON;
+        } else {
+            throw 'Problem fetching from the server: ' + response.statusText;
+        }
+    } catch(e) {
+        alert(e);
+        return { mostPopularResults: [] };
+    }
+}
+
 
 function render(articles) {
     // Picking top 3 articles from result (how else should we pick articles?)
@@ -52,7 +68,9 @@ window.addEventListener('load', async () => {
     // const topStories = await getTopStories();
     // console.log(topStories);
 
-    const mostPopular = await getMostPopular();
-    console.log(mostPopular);
-    render(mostPopular.results);
+    // const mostPopular = await getMostPopular();
+    // console.log(mostPopular);
+    // render(mostPopular.results);
+    const charities = await getCharities();
+    console.log(charities);
 });
