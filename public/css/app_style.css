@@ -86,7 +86,7 @@
 }
 
 .card-header {
-    background: white;
+    background: transparent;
     border: 0px;
 }
 
@@ -176,4 +176,12 @@
     left: 180px;
     min-width: 180px;
     max-width: 250px;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: black;
 }

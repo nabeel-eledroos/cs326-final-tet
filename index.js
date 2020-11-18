@@ -6,6 +6,7 @@ const express = require('express');
 const expressSession = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 8000;
 app.use(express.static('public'));
@@ -13,8 +14,6 @@ app.use(express.static('public'));
 const fs = require('fs');
 const datafile = './fake_data.json';
 const users = require(datafile);
-const mostPopular = require('./mostPop.json');
-const topStories = require('./topStories.json');
 const config = require("./config.json");
 const { RSA_NO_PADDING } = require('constants');
 
@@ -98,7 +97,7 @@ function addUser(user) {
 
 app.get('/', (req, res) => res.sendFile('/index.html'));
 
-/******User signup requests******/
+/****** User signup requests ******/
 // Sends back html file to load
 app.get('/signup', (req, res) =>
         res.sendFile('/public/signup/sign_up.html', 
@@ -127,7 +126,7 @@ app.post('/signup',
         }
     });
 
-/******User signin requests******/
+/****** User signin requests ******/
 // Checks if user is authenticated, if so calls next to do next action.
 // If not, the error handler is called.
 function checkLoggedIn(req, res, next) {
@@ -237,45 +236,58 @@ app.get('/private/:userID/closeAccount',
         res.redirect('/logout');
     });
 
-app.get('/topStories', (req, res) => {
-    const resData = topStories.results;
-    res.json({ topStoriesResults: resData });
+
+/****** External API requests ******/
+
+/**
+ * Get Top articles from NYTimes API, according to specific category
+ */
+app.get('/topStories', async function(req, res) {
+    try {
+        // For now, getting articles on the home page.
+        const path = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${config._nyt-key}`;
+        fetch(path)
+        .then(res => res.json())
+        .then(data => {
+            res.send(JSON.stringify(data));
+        })
+        .catch(err => {
+            res.send(err);
+        });
+    } catch(e) {
+        res.status = 405;
+        res.send({
+            'status': e
+        });
+    }
 });
 
-app.get('/mostPopular', (req, res) => {
-    const resData = mostPopular.results;
-    res.json({ mostPopularResults: resData });
+/**
+ * Get Most Popular articles from NYTimes API
+ */
+app.get('/mostPopular', async function(req, res) {
+    try {
+        const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${config._nyt-key}`;
+        fetch(path)
+        .then(res => res.json())
+        .then(data => {
+            res.send(JSON.stringify(data));
+        })
+        .catch(err => {
+            res.send(err);
+        });
+    } catch(e) {
+        res.status = 405;
+        res.send({
+            'status': e
+        });
+    }
 });
 
 app.get('*', (req, res) => {
     res.status(404);
     res.send('request does not exist.');
 });
-
-/**
- * Respond to client making calls for info from NYTimes API 
- * CURRENTLY BROKEN
- */
-// app.post('/mostPopular', async function(req, res) {
-//     const response = getMostPopular();
-//     res.send(response);
-//     try {
-//         const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${_key}`;
-//         const response = await fetch(path);
-
-//         if(response.ok) {
-//             const pop_JSON = await response.json();
-//             res.send(JSON.stringify(pop_JSON)); 
-//         } else {
-//             throw new Error(response.statusText);
-//         }
-//     } catch(e) {
-//         res.status = 405;
-//         res.send({
-//             'status': e
-//         });
-//     }
-// });
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
