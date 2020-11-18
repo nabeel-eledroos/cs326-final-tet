@@ -9,7 +9,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 8000;
-app.use(express.static('public'));
 
 const fs = require('fs');
 const datafile = './fake_data.json';
@@ -98,13 +97,14 @@ function addUser(user) {
     }
 }
 
+app.use(express.static('public'));
+
 app.get('/', (req, res) => res.sendFile('/index.html'));
 
 /****** User signup requests ******/
 // Sends back html file to load
 app.get('/signup', (req, res) =>
-        res.sendFile('/public/signup/sign_up.html', 
-                    { 'root': __dirname }));
+        res.sendFile('public/signup/sign_up.html', { 'root': __dirname }));
 
 /**
  * Takes post request from client signup and adds them to the user list.
