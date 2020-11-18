@@ -245,7 +245,7 @@ app.get('/private/:userID/closeAccount',
 app.get('/topStories', async function(req, res) {
     try {
         // For now, getting articles on the home page.
-        const path = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${config._key}`;
+        const path = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${config._nyt-key}`;
         fetch(path)
         .then(res => res.json())
         .then(data => {
@@ -267,7 +267,7 @@ app.get('/topStories', async function(req, res) {
  */
 app.get('/mostPopular', async function(req, res) {
     try {
-        const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${config._key}`;
+        const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${config._nyt-key}`;
         fetch(path)
         .then(res => res.json())
         .then(data => {
