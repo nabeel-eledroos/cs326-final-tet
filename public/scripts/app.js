@@ -33,16 +33,20 @@ async function getMostPopular() {
     }
 }
 
-// function render {
 
-// }
+function render(articles) {
+    // Picking top 3 articles from result (how else should we pick articles?)
+    for (let i=1;i<=3;i++) {
+        document.getElementById(`card-${i}-title`).innerHTML = "<a href='" + articles[i].url + "' target='_blank'>" + articles[i].title + "</a>";
+        document.getElementById(`card-${i}-text`).innerText = articles[i].section;
+    }
+}
 
 window.addEventListener('load', async () => {
-    const topStories = await getTopStories();
-    console.log(topStories);
+    // const topStories = await getTopStories();
+    // console.log(topStories);
 
     const mostPopular = await getMostPopular();
     console.log(mostPopular);
-
-    // render();
+    render(mostPopular.results);
 });
