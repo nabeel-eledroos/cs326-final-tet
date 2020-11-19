@@ -90,9 +90,9 @@ async function render(articles) {
         console.log(articles[i].section);
         //TODO: edge case if search comes back empty
         const charities = await searchCharities(articles[i].section);
-        // console.log(charities);
+        console.log(charities);
         for (let j=1;j<=3;j++) {
-            document.getElementById(`card-${i}-charity-${j}`).innerText = charities[j].charityName;
+            document.getElementById(`card-${i}-charity-${j}`).innerHTML = `<a href='${charities[j].charityNavigatorURL}' target='_blank'>${charities[j].charityName} </a>`;
         }
     }
 }
