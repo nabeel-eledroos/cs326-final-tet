@@ -39,12 +39,61 @@ async function getMostPopular() {
     }
 }
 
+async function getCharities() {
+    try {
+        const response = await fetch(__dirname + '/charities');
 
-function render(articles) {
+        if(response.ok) {
+            const charitiesJSON = await response.json();
+            return charitiesJSON;
+        } else {
+            throw 'Problem fetching from the server: ' + response.statusText;
+        }
+    } catch(e) {
+        alert(e);
+        return { mostPopularResults: [] };
+    }
+}
+
+async function searchCharities(param) {
+    try {
+
+        const body = { param:param };
+        const response = await fetch(__dirname + '/charitySearch', {
+            method: 'post',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if(response.ok) {
+            const charitiesJSON = await response.json();
+            return charitiesJSON;
+        } else {
+            throw 'Problem fetching from the server: ' + response.statusText;
+        }
+    } catch(e) {
+        alert(e);
+        return { mostPopularResults: [] };
+    }
+}
+
+
+async function render(articles) {
     // Picking top 3 articles from result (how else should we pick articles?)
     for (let i=1;i<=3;i++) {
-        document.getElementById(`card-${i}-title`).innerHTML = "<a href='" + articles[i].url + "' target='_blank'>" + articles[i].title + " </a> <i class='fas fa-" + icons[articles[i].section] + "'></i>";
+        document.getElementById(`card-${i}-title`).innerHTML = `<a href='${articles[i].url}' target='_blank'>${articles[i].title} </a> <i class='fas fa-${icons[articles[i].section]}'></i>`;
         document.getElementById(`card-${i}-text`).innerText = articles[i].section;
+
+        // Searching for charities by article section
+        console.log(articles[i].section);
+        //TODO: edge case if search comes back empty
+        const charities = await searchCharities(articles[i].section);
+        console.log(charities);
+        for (let j=1;j<=3;j++) {
+            document.getElementById(`card-${i}-charity-${j}`).innerHTML = `<a href='${charities[j].charityNavigatorURL}' target='_blank'>${charities[j].charityName} </a>`;
+        }
     }
 }
 
@@ -53,6 +102,6 @@ window.addEventListener('load', async () => {
     // console.log(topStories);
 
     const mostPopular = await getMostPopular();
-    console.log(mostPopular);
-    render(mostPopular.results);
+    // console.log(mostPopular);
+    await render(mostPopular.results);
 });

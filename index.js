@@ -246,38 +246,61 @@ app.get('/private/:userID/closeAccount',
  * Get Top articles from NYTimes API, according to specific category
  */
 app.get('/topStories', async function(req, res) {
-    try {
-        // For now, getting articles on the home page.
-        const path = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${config._nytkey}`;
-        fetch(path)
-        .then(res => res.json())
-        .then(data => {
-            res.send(JSON.stringify(data));
-        })
-        .catch(err => {
-            res.send(err);
-        });
-    } catch(e) {
-        res.status = 405;
-        res.send({
-            'status': e
-        });
-    }
+    // For now, getting articles on the home page.
+    const path = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${config._nytkey}`;
+    fetch(path)
+    .then(res => res.json())
+    .then(data => {
+        res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+        res.send(err);
+    });
 });
 
 /**
  * Get Most Popular articles from NYTimes API
  */
 app.get('/mostPopular', async function(req, res) {
-        const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${config._nytkey}`;
-        fetch(path)
-        .then(res => res.json())
-        .then(data => {
-            res.send(JSON.stringify(data));
-        })
-        .catch(err => {
-            res.send(err);
-        });
+    const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${config._nytkey}`;
+    fetch(path)
+    .then(res => res.json())
+    .then(data => {
+        res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+        res.send(err);
+    });
+});
+
+/**
+ * Get all charities by specific search from charity nav
+ */
+app.post('/charitySearch', async function(req, res) {
+    const path = `https://api.data.charitynavigator.org/v2/Organizations?app_key=${config._charityKey}&app_id=${config._charityId}&search=${req.body.param}&pageSize=20`;
+    fetch(path)
+    .then(res => res.json())
+    .then(data => {
+        res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+        res.send(err);
+    });
+});
+
+/**
+ * Get all charities from charity nav
+ */
+app.get('/charities', async function(req, res) {
+    const path = `https://api.data.charitynavigator.org/v2/Organizations?app_key=${config._charityKey}&app_id=${config._charityId}`;
+    fetch(path)
+    .then(res => res.json())
+    .then(data => {
+        res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+        res.send(err);
+    });
 });
 
 app.get('*', (req, res) => {
