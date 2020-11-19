@@ -9,13 +9,15 @@ const LocalStrategy = require('passport-local').Strategy;
 const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 8000;
-app.use(express.static('public'));
 
 const fs = require('fs');
 const datafile = './fake_data.json';
 const users = require(datafile);
-const config = require("./config.json");
-const { RSA_NO_PADDING } = require('constants');
+const config = (process.env.PRODUCTION) ? {
+    "SECRET": process.env.SECRET,
+    "_nytkey": process.env.NYTKEY,
+    "_cnkey": process.env.CNKEY
+} : require("./config.json");
 
 const session = {
     secret: process.env.SECRET || config.SECRET,
@@ -95,13 +97,14 @@ function addUser(user) {
     }
 }
 
+app.use(express.static('public'));
+
 app.get('/', (req, res) => res.sendFile('/index.html'));
 
 /****** User signup requests ******/
 // Sends back html file to load
 app.get('/signup', (req, res) =>
-        res.sendFile('/public/signup/sign_up.html', 
-                    { 'root': __dirname }));
+        res.sendFile('public/signup/sign_up.html', { 'root': __dirname }));
 
 /**
  * Takes post request from client signup and adds them to the user list.
@@ -245,7 +248,7 @@ app.get('/private/:userID/closeAccount',
 app.get('/topStories', async function(req, res) {
     try {
         // For now, getting articles on the home page.
-        const path = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${config._nytKey}`;
+        const path = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${config._nytkey}`;
         fetch(path)
         .then(res => res.json())
         .then(data => {
@@ -267,7 +270,7 @@ app.get('/topStories', async function(req, res) {
  */
 app.get('/mostPopular', async function(req, res) {
     try {
-        const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${config._nytKey}`;
+        const path = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${config._nytkey}`;
         fetch(path)
         .then(res => res.json())
         .then(data => {
@@ -298,12 +301,6 @@ app.get('/charities', async function(req, res) {
         .catch(err => {
             res.send(err);
         });
-    } catch(e) {
-        res.status = 405;
-        res.send({
-            'status': e
-        });
-    }
 });
 
 app.get('*', (req, res) => {
