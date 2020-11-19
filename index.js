@@ -16,7 +16,8 @@ const users = require(datafile);
 const config = (process.env.PRODUCTION) ? {
     "SECRET": process.env.SECRET,
     "_nytkey": process.env.NYTKEY,
-    "_cnkey": process.env.CNKEY
+    "_cnkey": process.env.CNKEY,
+    "_cnid": process.env.CNID
 } : require("./config.json");
 
 const session = {
@@ -277,7 +278,7 @@ app.get('/mostPopular', async function(req, res) {
  * Get all charities by specific search from charity nav
  */
 app.post('/charitySearch', async function(req, res) {
-    const path = `https://api.data.charitynavigator.org/v2/Organizations?app_key=${config._charityKey}&app_id=${config._charityId}&search=${req.body.param}&pageSize=20`;
+    const path = `https://api.data.charitynavigator.org/v2/Organizations?app_key=${config._cnkey}&app_id=${config._cnid}&search=${req.body.param}&pageSize=20`;
     fetch(path)
     .then(res => res.json())
     .then(data => {
@@ -292,7 +293,7 @@ app.post('/charitySearch', async function(req, res) {
  * Get all charities from charity nav
  */
 app.get('/charities', async function(req, res) {
-    const path = `https://api.data.charitynavigator.org/v2/Organizations?app_key=${config._charityKey}&app_id=${config._charityId}`;
+    const path = `https://api.data.charitynavigator.org/v2/Organizations?app_key=${config._cnkey}&app_id=${config._cnid}`;
     fetch(path)
     .then(res => res.json())
     .then(data => {
