@@ -2,8 +2,8 @@ const __dirname = location.protocol + '//' + location.host;
 
 async function sign_in() {
     const email = document.getElementById('email').value,
-        password = document.getElementById('pword').value;
-    body = {id: email, password: password};
+        password = document.getElementById('pword').value,
+        body = {id: email, password: password};
     await fetch(__dirname + '/signin', {
         method: 'post',
         body: JSON.stringify(body),
@@ -35,11 +35,11 @@ async function sign_up() {
         return;
     }
 
-    const interests = getInterests();
+    const interests = getInterests(),
     body = {
-        name: name,
-        id: email,
+        email: email,
         password: password,
+        name: name,
         interests: interests,
         charities: []
     };

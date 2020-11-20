@@ -7,34 +7,19 @@ const expressSession = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const fetch = require('node-fetch');
-const pgp = require('pg-promise')({
-    connect(client) {
-        console.log('Connected to database:', client.connectionParameters.database);
-    },
-
-    disconnect(client) {
-        console.log('Disconnected from database:', client.connectionParameters.database);
-    }
-});
-
 const app = express();
-const port = process.env.PORT || 8000;
-
-const dbusername = "postgres";
-const dbpassword = "admin";
-
-const dburl = process.env.DATABASE_URL || `postgres://${dbusername}:${dbpassword}@localhost/`;
-const db = pgp(dburl);
 
 const config = (process.env.PRODUCTION) ? {
+    "PORT": process.env.PORT,
     "SECRET": process.env.SECRET,
     "_nytkey": process.env.NYTKEY,
     "_cnkey": process.env.CNKEY,
-    "_cnid": process.env.CNID
+    "_cnid": process.env.CNID,
+    "_dburl": process.env.DATABASE_URL
 } : require("./config.json");
 
 const session = {
-    secret: process.env.SECRET || config.SECRET,
+    secret: config.SECRET,
     resave: false,
     saveUninitialized: false
 };
@@ -52,23 +37,6 @@ const strategy = new LocalStrategy(
         return done(null, id);
     }
 );
-
-// DB connection
-async function connectAndRun(task) {
-    let connection = null;
-
-    try {
-        connection = await db.connect();
-        return await task(connection);
-    } catch (e) {
-        throw e;
-    } finally {
-        try {
-            connection.done();
-        } catch(ignored) {
-        }
-    }
-}
 
 app.use(expressSession(session));
 passport.use(strategy);
@@ -92,11 +60,35 @@ function signUpErrHandler(err, req, res, next) {
 }
 app.use(signUpErrHandler);
 
-// Find if user exists. returns true if so.
-async function findUser(email) {
-    // return users.some(user => user.email === email);
-    return await connectAndRun(db => db.one("SELECT EXISTS(SELECT * FROM users WHERE email = $1)",[email]));
+/** Database Wiring */
+// DB connection
+async function connectAndRun(task) {
+    let connection = null;
+
+    try {
+        connection = await db.connect();
+        return await task(connection);
+    } catch (e) {
+        throw e;
+    } finally {
+        try {
+            connection.done();
+        } catch(ignored) {
+        }
+    }
 }
+
+// Instantiate pg-promise
+const pgp = require('pg-promise')({
+    connect(client) {
+        console.log('Connected to database:', client.connectionParameters.database);
+    },
+
+    disconnect(client) {
+        console.log('Disconnected from database:', client.connectionParameters.database);
+    }
+});
+const db = pgp(config._dburl);
 
 // find if user exists, checks password, returns true if correct password
 // TODO: Wire for db
@@ -113,31 +105,20 @@ function validatePassword(username, password) {
     }
 }
 
-// adds user to database if they do not exist already
+// Find if user exists. returns true if so.
+async function findUser(email) {
+    return await connectAndRun(db => 
+        db.one("SELECT * FROM users WHERE email = $1;", email));
+}
+
+// adds user to database
 async function addUser(user) {
-    // if(findUser(user.email)) {
-    //     return false;
-    // } else {
-    //     users.push(user);
-    //     fs.writeFile(datafile, JSON.stringify(users), err => {
-    //         if (err) {
-    //             console.err(err);
-    //         }
-    //     });
-    //     return true;
-    // }
-    findUser(user.email)
-    .then(async data => {
-        if (data.exists) {
-            return false;
-        } else {
-            return await connectAndRun(db => db.none("INSERT INTO users (email, salt, password, name, interests, charities) VALUES ($1, $2, $3, $4, $5, $6);",
-                [user.email, user.salt, user.password, user.name, user.interests, 345]
-            ));
-        }
-     })
-     .catch( err => {
-     });
+    return await connectAndRun(db => 
+        db.none(
+            "INSERT INTO users(email, salt, password, name, interests, charities)\
+                VALUES ($1, $2, $3, $4, $5, $6)", 
+                Object.values(user) // [email, salt, password, name, interests[], charities[]]
+        ));
 }
 
 app.use(express.static('public'));
@@ -154,24 +135,24 @@ app.get('/signup', (req, res) =>
  */
 app.post('/signup', 
     (req, res, next) => {
-        if(!req.body.id || !req.body.password) {
+        if(!req.body.email || !req.body.password) {
             next('User Credentials are blank!');
         } else {
             const newUser = {
-                name: req.body.name,
-                email: req.body.id,
+                email: req.body.email,
                 salt: "1234",
                 password: req.body.password,
+                name: req.body.name,
                 interests: req.body.interests,
                 charities: req.body.charities
             };
-            addUser(newUser).then(data => {
-                if (data) {
+            addUser(newUser)
+                .then(() => {
                     res.send('success');
-                } else {
+                })
+                .catch(() => {
                     next('An account already exists under this email!');
-                }
-            });
+                });
         }
     });
 
@@ -366,6 +347,6 @@ app.get('*', (req, res) => {
     res.send('request does not exist.');
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.listen(config.PORT, () => {
+  console.log(`Example app listening at http://localhost:${config.PORT}`);
 });
