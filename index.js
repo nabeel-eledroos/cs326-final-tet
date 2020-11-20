@@ -7,16 +7,24 @@ const expressSession = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const fetch = require('node-fetch');
-const pgp = require('pg-promise');
+const pgp = require('pg-promise')({
+    connect(client) {
+        console.log('Connected to database:', client.connectionParameters.database);
+    },
+
+    disconnect(client) {
+        console.log('Disconnected from database:', client.connectionParameters.database);
+    }
+});
 
 const app = express();
 const port = process.env.PORT || 8000;
 
-// const dbusername = "postgres";
-// const dbpassword = "admin";
+const dbusername = "postgres";
+const dbpassword = "admin";
 
-const dburl = process.env.DATABASE_URL || `postgres://ockxhrgtimzldt:eefe4c05010769e742b944b416ced4799e3acd29f8502726acb5f69a9bf7c23c@ec2-52-5-176-53.compute-1.amazonaws.com:5432/dfr7p2fg9ma8v7`;
-const db = pgp()(dburl);
+const dburl = process.env.DATABASE_URL || `postgres://${dbusername}:${dbpassword}@localhost/`;
+const db = pgp(dburl);
 
 const config = (process.env.PRODUCTION) ? {
     "SECRET": process.env.SECRET,
@@ -87,9 +95,7 @@ app.use(signUpErrHandler);
 // Find if user exists. returns true if so.
 async function findUser(email) {
     // return users.some(user => user.email === email);
-    console.log("looking");
-    console.log(JSON.stringify(await connectAndRun(db => db.one("SELECT EXISTS(SELECT * FROM user WHERE email = $1)",[email]))));
-    return JSON.stringify(await connectAndRun(db => db.one("SELECT EXISTS(SELECT * FROM user WHERE email = $1)",[email])));
+    return await connectAndRun(db => db.one("SELECT EXISTS(SELECT * FROM users WHERE email = $1)",[email]));
 }
 
 // find if user exists, checks password, returns true if correct password
@@ -108,10 +114,10 @@ function validatePassword(username, password) {
 }
 
 // adds user to database if they do not exist already
-function addUser(user) {
+async function addUser(user) {
     // if(findUser(user.email)) {
     //     return false;
-    // } else {    
+    // } else {
     //     users.push(user);
     //     fs.writeFile(datafile, JSON.stringify(users), err => {
     //         if (err) {
@@ -120,10 +126,15 @@ function addUser(user) {
     //     });
     //     return true;
     // }
-    console.log("starting");
     findUser(user.email)
-    .then( data => {
-        data.exists ? console.log("yes") : console.log("no");
+    .then(async data => {
+        if (data.exists) {
+            return false;
+        } else {
+            return await connectAndRun(db => db.none("INSERT INTO users (email, salt, password, name, interests, charities) VALUES ($1, $2, $3, $4, $5, $6);",
+                [user.email, user.salt, user.password, user.name, user.interests, 345]
+            ));
+        }
      })
      .catch( err => {
      });
@@ -149,15 +160,18 @@ app.post('/signup',
             const newUser = {
                 name: req.body.name,
                 email: req.body.id,
+                salt: "1234",
                 password: req.body.password,
                 interests: req.body.interests,
                 charities: req.body.charities
             };
-            if(addUser(newUser)) {
-                res.send('success');
-            } else {
-                next('An account already exists under this email!');
-            }
+            addUser(newUser).then(data => {
+                if (data) {
+                    res.send('success');
+                } else {
+                    next('An account already exists under this email!');
+                }
+            });
         }
     });
 
@@ -217,10 +231,20 @@ app.get('/userInfo',
 app.get('/private/:userID/userInfo',
     checkLoggedIn,
     (req, res) => {
-        const userInfo = users.filter((user) => {
-            return user.email === req.user;
+        // const userInfo = users.filter((user) => {
+        //     return user.email === req.user;
+        // });
+        findUser(req.user)
+        .then(data => {
+            if (data.exists) {
+                //Need to get userInfo
+                res.sendStatus(200);//.send(userInfo);
+            } else {
+                res.sendStatus(400);
+            }
+        })
+        .catch( err => {
         });
-        res.status(200).send(userInfo);
     }
 );
 
@@ -235,20 +259,21 @@ app.get('/private/:userID/change',
 
 app.post('/changePass', 
     checkLoggedIn,
-    (req, res, next) => {
-        users.forEach(user => {
-            if (user.email === req.user) {
-                if (user.password === req.body.cpass) {
-                    user.password = req.body.npass;
-                }
-            }
-        });
-        fs.writeFile(datafile, JSON.stringify(users), err => {
-            if (err) {
-                console.err(err);
-                next(err);
-            }
-        });
+    async (req, res, next) => {
+        await connectAndRun(db => db.none("UPDATE users SET salt = $1, password = $2 WHERE email = $3;", [req.body.salt, req.body.cpass, req.user]));
+        // users.forEach(user => {
+        //     if (user.email === req.user) {
+        //         if (user.password === req.body.cpass) {
+        //             user.password = req.body.npass;
+        //         }
+        //     }
+        // });
+        // fs.writeFile(datafile, JSON.stringify(users), err => {
+        //     if (err) {
+        //         console.err(err);
+        //         next(err);
+        //     }
+        // });
         res.redirect('/signin')
     });
 
@@ -258,15 +283,16 @@ app.get('/closeAccount',
 
 app.get('/private/:userID/closeAccount', 
     checkLoggedIn, 
-    (req, res) => {
+    async (req, res) => {
         if(req.params.userID === req.user) {
-            const userInfoIndex = users.findIndex((user) => user.email === req.user);
-            users.splice(userInfoIndex, userInfoIndex >= 0 ? 1 : 0);
-            fs.writeFile(datafile, JSON.stringify(users), err => {
-                if (err) {
-                    console.err(err);
-                }
-            });
+            // const userInfoIndex = users.findIndex((user) => user.email === req.user);
+            // users.splice(userInfoIndex, userInfoIndex >= 0 ? 1 : 0);
+            // fs.writeFile(datafile, JSON.stringify(users), err => {
+            //     if (err) {
+            //         console.err(err);
+            //     }
+            // });
+            await connectAndRun(db => db.none("DELETE FROM users WHERE email = $1;", [email]));
         }
         res.redirect('/logout');
     });

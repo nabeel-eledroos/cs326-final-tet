@@ -1,7 +1,7 @@
 ***Add User to DB
 
 db.none(
-    "INSERT INTO user(email, salt, password, name, interests, charities)
+    "INSERT INTO users (email, salt, password, name, interests, charities)
      VALUES ($1, $2, $3, $4, $5, $6);",
     [email, salt, password, name, interests, integer]
 );
@@ -11,7 +11,7 @@ db.none(
 ***Get user info from DB, when checking their existence, logging in, getting interests or charities
 
 db.one(
-    "SELECT * FROM user
+    "SELECT * FROM users
      WHERE email = $1;",
     [email]
 );
@@ -21,7 +21,7 @@ db.one(
 ***Password change: NOTE: need hash and salt of new Password
 
 db.none(
-    "UPDATE user
+    "UPDATE users
      SET salt = $1,
          password = $2
      WHERE email = $3;",
@@ -33,7 +33,7 @@ db.none(
 ***Close user account
 
 db.none(
-    "DELETE FROM user
+    "DELETE FROM users
      WHERE email = $1;",
     [email]
 );
