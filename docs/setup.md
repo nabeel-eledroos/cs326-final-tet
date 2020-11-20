@@ -6,6 +6,7 @@ Install Dependencies:
          `npm install passport-local`
          `npm install passport-strategy`
          `npm install node-fetch`
+         `npm install pg-promise`
 
 To run: 
     `npm start` or

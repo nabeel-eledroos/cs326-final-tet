@@ -7,12 +7,17 @@ const expressSession = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const fetch = require('node-fetch');
+const pgp = require('pg-promise');
+
 const app = express();
 const port = process.env.PORT || 8000;
 
-const fs = require('fs');
-const datafile = './fake_data.json';
-const users = require(datafile);
+// const dbusername = "postgres";
+// const dbpassword = "admin";
+
+const dburl = process.env.DATABASE_URL || `postgres://ockxhrgtimzldt:eefe4c05010769e742b944b416ced4799e3acd29f8502726acb5f69a9bf7c23c@ec2-52-5-176-53.compute-1.amazonaws.com:5432/dfr7p2fg9ma8v7`;
+const db = pgp()(dburl);
+
 const config = (process.env.PRODUCTION) ? {
     "SECRET": process.env.SECRET,
     "_nytkey": process.env.NYTKEY,
@@ -40,6 +45,23 @@ const strategy = new LocalStrategy(
     }
 );
 
+// DB connection
+async function connectAndRun(task) {
+    let connection = null;
+
+    try {
+        connection = await db.connect();
+        return await task(connection);
+    } catch (e) {
+        throw e;
+    } finally {
+        try {
+            connection.done();
+        } catch(ignored) {
+        }
+    }
+}
+
 app.use(expressSession(session));
 passport.use(strategy);
 app.use(passport.initialize());
@@ -62,10 +84,12 @@ function signUpErrHandler(err, req, res, next) {
 }
 app.use(signUpErrHandler);
 
-// find if user exists. returns true if so. 
-// TODO: Wire for db
-function findUser(email) {
-    return users.some(user => user.email === email);
+// Find if user exists. returns true if so.
+async function findUser(email) {
+    // return users.some(user => user.email === email);
+    console.log("looking");
+    console.log(JSON.stringify(await connectAndRun(db => db.one("SELECT EXISTS(SELECT * FROM user WHERE email = $1)",[email]))));
+    return JSON.stringify(await connectAndRun(db => db.one("SELECT EXISTS(SELECT * FROM user WHERE email = $1)",[email])));
 }
 
 // find if user exists, checks password, returns true if correct password
@@ -85,17 +109,24 @@ function validatePassword(username, password) {
 
 // adds user to database if they do not exist already
 function addUser(user) {
-    if(findUser(user.email)) {
-        return false;
-    } else {    
-        users.push(user);
-        fs.writeFile(datafile, JSON.stringify(users), err => {
-            if (err) {
-                console.err(err);
-            }
-        });
-        return true;
-    }
+    // if(findUser(user.email)) {
+    //     return false;
+    // } else {    
+    //     users.push(user);
+    //     fs.writeFile(datafile, JSON.stringify(users), err => {
+    //         if (err) {
+    //             console.err(err);
+    //         }
+    //     });
+    //     return true;
+    // }
+    console.log("starting");
+    findUser(user.email)
+    .then( data => {
+        data.exists ? console.log("yes") : console.log("no");
+     })
+     .catch( err => {
+     });
 }
 
 app.use(express.static('public'));
