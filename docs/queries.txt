@@ -8,7 +8,7 @@ db.none(
     
 // Need to handle error if user exists...this will arise on duplicate email
 
-***Get user info from DB
+***Get user info from DB, when checking their existence, logging in, getting interests or charities
 
 db.one(
     "SELECT * FROM user
