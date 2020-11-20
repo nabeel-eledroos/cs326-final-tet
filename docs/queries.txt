@@ -1,25 +1,41 @@
 ***Add User to DB
 
-"INSERT INTO user(email, salt, password, name, interests, charities) 
-    VALUES ($1, $2, $3, $4, $5, $6);",
+db.none(
+    "INSERT INTO user(email, salt, password, name, interests, charities)
+     VALUES ($1, $2, $3, $4, $5, $6);",
     [email, salt, password, name, interests, integer]
+);
     
-    // Need to handle error if user exists...this will arise on duplicate email
+// Need to handle error if user exists...this will arise on duplicate email
 
 ***Get user info from DB
 
-"SELECT * FROM user 
-    WHERE email = $1;",
+db.one(
+    "SELECT * FROM user
+     WHERE email = $1;",
     [email]
+);
 
-    // Need to handle when no one returned
+// Need to handle when no one returned
 
 ***Password change: NOTE: need hash and salt of new Password
 
-"UPDATE user 
-    SET salt = $1,
-        password = $2
-    WHERE email = $3;",
+db.none(
+    "UPDATE user
+     SET salt = $1,
+         password = $2
+     WHERE email = $3;",
     [salt, password, email]
+);
 
-    // Need to handle on failure to update i.e. user does not exist
+// Need to handle on failure to update i.e. user does not exist
+
+***Close user account
+
+db.none(
+    "DELETE FROM user
+     WHERE email = $1;",
+    [email]
+);
+
+// Need to handle failure to delete, i.e. user does not exist
