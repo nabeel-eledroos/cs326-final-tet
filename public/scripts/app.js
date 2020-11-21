@@ -92,7 +92,7 @@ async function render_trending(articles) {
         // Searching for charities by article section
         //TODO: edge case if search comes back empty
         const charities = await searchCharities(articles[i].section);
-        console.log(charities);
+        // console.log(charities);
         // Picking a random number (1-17) and getting 3 charities
         const charity_start = Math.floor(Math.random() * 17) + 1;
         let charity_num = 1;
@@ -106,7 +106,6 @@ async function render_trending(articles) {
 
 async function render_causes(filter) {
     const charities = await searchCharities(filter);
-    console.log(charities);
 
     // Rendering a max of 8 charities
     const max = (charities.length>8) ? 8 : charities.length;
@@ -114,22 +113,46 @@ async function render_causes(filter) {
     for (let j=0;j<max;j++) {
         const cause = document.createElement('div');
         cause.classList.add('cause');
-        cause.innerHTML = `<a href='${charities[j].charityNavigatorURL}' target='_blank'>${charities[j].charityName} </a>`;
+        cause.innerHTML = `<a href='${charities[j].charityNavigatorURL}' class='text' target='_blank'>${charities[j].charityName} </a>`;
 
         parent.appendChild(cause);
     }
 }
 
-// function render_filters() {
-    
-// }
+async function getInfo() {
+    try {
+        const response = await fetch(__dirname + '/userInfo');
+        if(response.ok) {
+            const accountInfo = await response.json();
+            return accountInfo;
+        } else {
+            throw 'Problem fetching from server: ' + response.statusText;
+        }
+    } catch(e) {
+        alert(e);
+        return { empty_acc: [] };
+    }
+}
+
+function render_filters() {
+    // Uncomment once "/userInfo" endpoint is all set:
+    // const account_info = await getInfo();
+    // const { interests } = account_info[0];
+    const interests = ["coronavirus", "environment", "education"];
+    const parent = document.getElementById('cause-filter');
+    interests.forEach((interest) => {
+        let option = document.createElement("option");
+        option.text = interest;
+        option.value = interest;
+        parent.add(option);
+    });
+}
 
 window.addEventListener('load', async () => {
     const mostPopular = await getMostPopular();
     await render_trending(mostPopular.results);
 
-    //TODO: get causes from user info and render in dropdown
-    // render_filters();
+    render_filters();
 });
 
 document.getElementById('cause-filter').addEventListener('change', async (event) => {
