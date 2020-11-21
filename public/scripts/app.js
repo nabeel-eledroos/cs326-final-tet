@@ -98,6 +98,11 @@ async function render_trending(articles) {
         let charity_num = 1;
         for (let j=charity_start;j<charity_start+3;j++) {
             document.getElementById(`card-${card_num}-charity-${charity_num}`).innerHTML = `<a href='${charities[j].charityNavigatorURL}' target='_blank'>${charities[j].charityName} </a>`;
+            if (charities[j].irsClassification.nteeClassification) {
+                document.getElementById(`card-${card_num}-charity-${charity_num}-info`).innerText = `Type: ${charities[j].irsClassification.nteeClassification}`;
+            } else {
+                document.getElementById(`card-${card_num}-charity-${charity_num}-info`).innerText = "No info available";
+            }
             charity_num ++;
         }
         card_num ++;
