@@ -30,8 +30,7 @@ async function sign_up() {
         password = document.getElementById('password').value,
         repassword = document.getElementById('repassword').value;
     if (password !== repassword) {
-        //TODO: add pop-up for password mismatch
-        console.log("Passwords Don't Match!");
+        alert('Passwords do not match!');
         return;
     }
 
@@ -54,7 +53,7 @@ async function sign_up() {
     if (response.ok) {
         window.location.href = __dirname + '/signin';
     } else {
-        console.log(response.error);
+        alert(response.error);
         return;
     }
 }
