@@ -8,6 +8,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const fetch = require('node-fetch');
 const app = express();
+const minicrypt = require('./libs/miniCrypt');
+
+const mc = new minicrypt();
 
 const config = (process.env.PRODUCTION) ? {
     "PORT": process.env.PORT,
@@ -29,13 +32,16 @@ const strategy = new LocalStrategy(
     async(email, password, done) => {
         findUser(email)
             .then((data) => {
-                if(data.password === password) {
+                if(mc.check(password, data.salt, data.password)) {
                     return done(null, email);
+                } else {
+                    return done(null, false, { 'message': 'Wrong username/password' });
                 }
             })
             .catch(async (error) => {
+                console.log(error);
                 await new Promise((r) => setTimeout(r, 2000));
-                return done(null, false, { 'message': 'Wrong username/password' });
+                return done(null, false, { 'message': 'Error internally. Please try again.' });
             });
     }
 );
@@ -139,10 +145,11 @@ app.post('/signup',
         if(!req.body.email || !req.body.password) {
             next('User Credentials are blank!');
         } else {
+            const [salt, hash] = mc.hash(req.body.password);
             const newUser = {
                 email: req.body.email,
-                salt: "1234",
-                password: req.body.password,
+                salt: salt,
+                password: hash,
                 name: req.body.name,
                 interests: req.body.interests,
                 charities: req.body.charities
@@ -215,8 +222,12 @@ app.get('/private/:userID/userInfo',
     (req, res, next) => {
         findUser(req.user)
             .then((data) => {
-                console.log(data);
-                res.send(JSON.stringify(data));
+                res.send(JSON.stringify({
+                    "name": data.name,
+                    "email": data.email,
+                    "interests": data.interests,
+                    "charities": data.charities
+                }));
             })
             .catch(() => {
                 next("This account doesn't exist!");
@@ -236,13 +247,14 @@ app.get('/private/:userID/change',
 app.post('/changePass', 
     checkLoggedIn,
     (req, res, next) => {
+        const [salt, hash] = mc.hash(req.body.npass);
         connectAndRun(db =>  
             db.none(
                 "UPDATE users \
                 SET salt = $1, \
                     password = $2 \
                 WHERE email = $3;", 
-                ['req.body.salt', req.body.npass, req.user]))
+                [salt, hash, req.user]))
             .then(() => {
                 res.redirect('/signin')
             })

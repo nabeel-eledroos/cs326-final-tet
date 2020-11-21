@@ -17,13 +17,15 @@ async function getInfo() {
 
 async function render() {
     const account_info = await getInfo();
-    console.log(account_info);
-    const { name, email, password, interests, charities } = account_info;
+    const { name, email, interests } = (account_info) ? account_info : 
+        { "name" : "", 
+          "email": "",
+          "interests": "no interests :("
+        };
 
-    document.getElementById('name').innerText = name ? name : "no name";
+    document.getElementById('name').innerText = name;
     document.getElementById('email').innerText = email;
-    document.getElementById('password').innerText = password;
-    document.getElementById('interests').innerText = interests.length > 0 ? interests : "no interests :(";
+    document.getElementById('interests').innerText = interests;
 }
 
 window.addEventListener('load', async () => {
