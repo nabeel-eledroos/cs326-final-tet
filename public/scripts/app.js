@@ -139,7 +139,7 @@ async function getInfo() {
     }
 }
 
-function render_filters() {
+async function render_filters() {
     const account_info = await getInfo();
     const { interests } = account_info[0];
     if (interests.length === 0) {
@@ -158,7 +158,7 @@ window.addEventListener('load', async () => {
     const mostPopular = await getMostPopular();
     await render_trending(mostPopular.results);
 
-    render_filters();
+    await render_filters();
 });
 
 document.getElementById('cause-filter').addEventListener('change', async (event) => {
