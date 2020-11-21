@@ -140,10 +140,11 @@ async function getInfo() {
 }
 
 function render_filters() {
-    // Uncomment once "/userInfo" endpoint is all set:
-    // const account_info = await getInfo();
-    // const { interests } = account_info[0];
-    const interests = ["coronavirus", "environment", "education"];
+    const account_info = await getInfo();
+    const { interests } = account_info[0];
+    if (interests.length === 0) {
+        interests = ["coronavirus", "environment", "education"];
+    }
     const parent = document.getElementById('cause-filter');
     interests.forEach((interest) => {
         let option = document.createElement("option");
