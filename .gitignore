@@ -2,4 +2,5 @@ node_modules
 .DS_store
 config.json
 .vscode
-fake_data.json
+old
+testDB.js

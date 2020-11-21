@@ -29,7 +29,7 @@ async function sign_up() {
         email = document.getElementById('email').value,
         password = document.getElementById('password').value,
         repassword = document.getElementById('repassword').value;
-    if (password != repassword) {
+    if (password !== repassword) {
         //TODO: add pop-up for password mismatch
         console.log("Passwords Don't Match!");
         return;

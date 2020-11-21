@@ -17,7 +17,8 @@ async function getInfo() {
 
 async function render() {
     const account_info = await getInfo();
-    const { name, email, password, interests, charities } = account_info[0];
+    console.log(account_info);
+    const { name, email, password, interests, charities } = account_info;
 
     document.getElementById('name').innerText = name ? name : "no name";
     document.getElementById('email').innerText = email;
@@ -26,36 +27,5 @@ async function render() {
 }
 
 window.addEventListener('load', async () => {
-    render();
+    await render();
 });
-
-// async function deleteAcct() {
-//     const response = await fetch(__dirname + '/closeAccount');
-
-//     if (response.ok) {
-//         const reshtml = await response.text();
-//         window.location.replace(reshtml);
-//     } else {
-//         console.log(response.error);
-//         return true;
-//     }
-// }
-
-// async function changePass() {
-//     body = { current_password: document.getElementById('cpass').value, new_password: document.getElementById('npass').value };
-//     const response = await fetch(__dirname + '/changePass', {
-//         method: 'post',
-//         body: JSON.stringify(body),
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     });
-//     if (response.ok) {
-//         const reshtml = await response.text();
-//         window.location.replace(reshtml);
-//         render();
-//     } else {
-//         console.log(response.error);
-//         return;
-//     }
-// }

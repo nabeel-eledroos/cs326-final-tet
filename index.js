@@ -26,18 +26,21 @@ const session = {
 
 // Strategy for user authentication
 const strategy = new LocalStrategy(
-    async(id, password, done) => {
-        if(!findUser(id)) {
-            return done(null, false, { 'message': 'Wrong username' });
-        }
-        if(!validatePassword(id, password)) {
-            await new Promise((r) => setTimeout(r, 2000));
-            return done(null, false, { 'message': 'Wrong password' });
-        }
-        return done(null, id);
+    async(email, password, done) => {
+        findUser(email)
+            .then((data) => {
+                if(data.password === password) {
+                    return done(null, email);
+                }
+            })
+            .catch(async (error) => {
+                await new Promise((r) => setTimeout(r, 2000));
+                return done(null, false, { 'message': 'Wrong username/password' });
+            });
     }
 );
 
+// PassportJS implementation for user auth
 app.use(expressSession(session));
 passport.use(strategy);
 app.use(passport.initialize());
@@ -54,7 +57,7 @@ passport.deserializeUser((user, done) => {
 app.use(express.json());
 app.use(express.urlencoded({ 'extended': true }));
 
-// error handler that sends why request failed.
+// Error handler that sends why request failed.
 function signUpErrHandler(err, req, res, next) {
     res.send({error: err});
 }
@@ -78,7 +81,7 @@ async function connectAndRun(task) {
     }
 }
 
-// Instantiate pg-promise
+// Instantiate pg-promise with connect and disconnect inits
 const pgp = require('pg-promise')({
     connect(client) {
         console.log('Connected to database:', client.connectionParameters.database);
@@ -91,16 +94,16 @@ const pgp = require('pg-promise')({
 const db = pgp(config._dburl);
 
 // find if user exists, checks password, returns true if correct password
-function validatePassword(username, password) {
-    connectAndRun(db => 
-        db.one("SELECT * FROM users WHERE email = $1 AND password = $2", [username, password]))
-        .then(() => {
-            return true;
-        })
-        .catch(() => {
-            return false;
-        });
-}
+// function validatePassword(username, password) {
+//     connectAndRun(db => 
+//         db.one("SELECT * FROM users WHERE email = $1 AND password = $2", [username, password]))
+//         .then(() => {
+//             return true;
+//         })
+//         .catch(() => {
+//             return false;
+//         });
+// }
 
 // Find if user exists. returns true if so.
 async function findUser(email) {
@@ -209,9 +212,10 @@ app.get('/userInfo',
 
 app.get('/private/:userID/userInfo',
     checkLoggedIn,
-    (req, res) => {
+    (req, res, next) => {
         findUser(req.user)
             .then((data) => {
+                console.log(data);
                 res.send(JSON.stringify(data));
             })
             .catch(() => {
@@ -232,15 +236,20 @@ app.get('/private/:userID/change',
 app.post('/changePass', 
     checkLoggedIn,
     (req, res, next) => {
-        connectAndRun(db => 
-            db.none("UPDATE users SET salt = $1, password = $2 WHERE email = $3;", [req.body.salt, req.body.cpass, req.user]))
+        connectAndRun(db =>  
+            db.none(
+                "UPDATE users \
+                SET salt = $1, \
+                    password = $2 \
+                WHERE email = $3;", 
+                ['req.body.salt', req.body.npass, req.user]))
             .then(() => {
                 res.redirect('/signin')
             })
             .catch(() => {
                 next("This account doesn't exist!");
             });
-    });
+        });
 
 app.get('/closeAccount', 
     checkLoggedIn, 
@@ -248,16 +257,14 @@ app.get('/closeAccount',
 
 app.get('/private/:userID/closeAccount', 
     checkLoggedIn, 
-    (req, res) => {
-        if(req.params.userID === req.user) {
-            connectAndRun(db => db.none("DELETE FROM users WHERE email = $1;", [email]))
-                .then(() => {
-                    res.redirect('/logout');
-                })
-                .catch(() => {
-                    next("This account doesn't exist!");
-                });
-        }
+    (req, res, next) => {
+        connectAndRun(db => db.none("DELETE FROM users WHERE email = $1;", req.user))
+        .then(() => {
+            res.redirect('/logout');
+        })
+        .catch(() => {
+            next("This account doesn't exist!");
+        });
     });
 
 
