@@ -91,18 +91,15 @@ const pgp = require('pg-promise')({
 const db = pgp(config._dburl);
 
 // find if user exists, checks password, returns true if correct password
-// TODO: Wire for db
 function validatePassword(username, password) {
-    if(!findUser(username)) {
-        return false;
-    } else {
-        return users.some(user => {
-            if(user.email === username) {
-                return user.password === password;
-            }
+    connectAndRun(db => 
+        db.one("SELECT * FROM users WHERE email = $1 AND password = $2", [username, password]))
+        .then(() => {
+            return true;
+        })
+        .catch(() => {
             return false;
         });
-    }
 }
 
 // Find if user exists. returns true if so.
@@ -113,6 +110,7 @@ async function findUser(email) {
 
 // adds user to database
 async function addUser(user) {
+    // Need to check if user exists?
     return await connectAndRun(db => 
         db.none(
             "INSERT INTO users(email, salt, password, name, interests, charities)\
@@ -212,20 +210,13 @@ app.get('/userInfo',
 app.get('/private/:userID/userInfo',
     checkLoggedIn,
     (req, res) => {
-        // const userInfo = users.filter((user) => {
-        //     return user.email === req.user;
-        // });
         findUser(req.user)
-        .then(data => {
-            if (data.exists) {
-                //Need to get userInfo
-                res.sendStatus(200);//.send(userInfo);
-            } else {
-                res.sendStatus(400);
-            }
-        })
-        .catch( err => {
-        });
+            .then((data) => {
+                res.send(JSON.stringify(data));
+            })
+            .catch(() => {
+                next("This account doesn't exist!");
+            });
     }
 );
 
@@ -240,22 +231,15 @@ app.get('/private/:userID/change',
 
 app.post('/changePass', 
     checkLoggedIn,
-    async (req, res, next) => {
-        await connectAndRun(db => db.none("UPDATE users SET salt = $1, password = $2 WHERE email = $3;", [req.body.salt, req.body.cpass, req.user]));
-        // users.forEach(user => {
-        //     if (user.email === req.user) {
-        //         if (user.password === req.body.cpass) {
-        //             user.password = req.body.npass;
-        //         }
-        //     }
-        // });
-        // fs.writeFile(datafile, JSON.stringify(users), err => {
-        //     if (err) {
-        //         console.err(err);
-        //         next(err);
-        //     }
-        // });
-        res.redirect('/signin')
+    (req, res, next) => {
+        connectAndRun(db => 
+            db.none("UPDATE users SET salt = $1, password = $2 WHERE email = $3;", [req.body.salt, req.body.cpass, req.user]))
+            .then(() => {
+                res.redirect('/signin')
+            })
+            .catch(() => {
+                next("This account doesn't exist!");
+            });
     });
 
 app.get('/closeAccount', 
@@ -264,18 +248,16 @@ app.get('/closeAccount',
 
 app.get('/private/:userID/closeAccount', 
     checkLoggedIn, 
-    async (req, res) => {
+    (req, res) => {
         if(req.params.userID === req.user) {
-            // const userInfoIndex = users.findIndex((user) => user.email === req.user);
-            // users.splice(userInfoIndex, userInfoIndex >= 0 ? 1 : 0);
-            // fs.writeFile(datafile, JSON.stringify(users), err => {
-            //     if (err) {
-            //         console.err(err);
-            //     }
-            // });
-            await connectAndRun(db => db.none("DELETE FROM users WHERE email = $1;", [email]));
+            connectAndRun(db => db.none("DELETE FROM users WHERE email = $1;", [email]))
+                .then(() => {
+                    res.redirect('/logout');
+                })
+                .catch(() => {
+                    next("This account doesn't exist!");
+                });
         }
-        res.redirect('/logout');
     });
 
 
