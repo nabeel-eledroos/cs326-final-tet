@@ -127,6 +127,8 @@
     top: 40px;
     margin: auto;
     max-width: 80%;
+    display: grid;
+    grid-template-rows: repeat(8, auto);
 }
 
 .cause {
@@ -134,9 +136,9 @@
     background: #FAFAFA;
     box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
-    margin: 15px auto;
+    margin: 8px 0px;
     padding: 27px 41px;
-    max-width: 90%;
+    max-width: 60%;
 }
 
 .cause img[id="fav"]{
@@ -174,7 +176,7 @@
     position: relative;
     /* box-sizing: border-box; */
     top: 25px;
-    left: 180px;
+    left: 9%;
     min-width: 180px;
     max-width: 250px;
 }

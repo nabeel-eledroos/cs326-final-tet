@@ -104,30 +104,35 @@ async function render_trending(articles) {
     }
 }
 
-// async function render_causes(articles) {
-//     //TODO: edge case if search comes back empty
-//     const charities = await searchCharities(articles[i].section);
-//     console.log(charities);
-//     // Picking a random number (1-17) and getting 3 charities
-//     const charity_start = Math.floor(Math.random() * 17) + 1;
-//     let charity_num = 1;
-//     for (let j=charity_start;j<charity_start+3;j++) {
-//         document.getElementById(`card-${card_num}-charity-${charity_num}`).innerHTML = `<a href='${charities[j].charityNavigatorURL}' target='_blank'>${charities[j].charityName} </a>`;
-//         charity_num ++;
-//     }
+async function render_causes(filter) {
+    const charities = await searchCharities(filter);
+    console.log(charities);
+
+    // Rendering a max of 8 charities
+    const max = (charities.length>8) ? 8 : charities.length;
+    const parent = document.getElementById('cause-wrapper');
+    for (let j=0;j<max;j++) {
+        const cause = document.createElement('div');
+        cause.classList.add('cause');
+        cause.innerHTML = `<a href='${charities[j].charityNavigatorURL}' target='_blank'>${charities[j].charityName} </a>`;
+
+        parent.appendChild(cause);
+    }
+}
+
+// function render_filters() {
+    
 // }
 
 window.addEventListener('load', async () => {
-    // const topStories = await getTopStories();
-    // console.log(topStories);
-
     const mostPopular = await getMostPopular();
-    // console.log(mostPopular);
-    await render_trending(mostPopular.results);
-    // await render_causes(mostPopular.results);
+    // await render_trending(mostPopular.results);
+
+    //TODO: get causes from user info and render in dropdown
+    // render_filters();
 });
 
-// document.getElementById('.cause-filter').addEventListener('change', (event) => {
-//   const result = document.querySelector('.result');
-//   result.textContent = `You like ${event.target.value}`;
-// });
+document.getElementById('cause-filter').addEventListener('change', async (event) => {
+    document.getElementById('cause-wrapper').innerHTML = '';
+    await render_causes(event.target.value);
+});
