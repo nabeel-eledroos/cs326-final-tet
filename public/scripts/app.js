@@ -126,7 +126,7 @@ async function render_causes(filter) {
 
 window.addEventListener('load', async () => {
     const mostPopular = await getMostPopular();
-    // await render_trending(mostPopular.results);
+    await render_trending(mostPopular.results);
 
     //TODO: get causes from user info and render in dropdown
     // render_filters();
