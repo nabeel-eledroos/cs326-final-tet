@@ -4,10 +4,13 @@ require('dotenv').config();
 
 const express = require('express');
 const expressSession = require('express-session');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const fetch = require('node-fetch');
 const app = express();
+const flash = require('connect-flash');
+app.use(flash());
+
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const minicrypt = require('./libs/miniCrypt');
 
 const mc = new minicrypt();
@@ -63,12 +66,6 @@ passport.deserializeUser((user, done) => {
 app.use(express.json());
 app.use(express.urlencoded({ 'extended': true }));
 
-// Error handler that sends why request failed.
-function signUpErrHandler(err, req, res, next) {
-    res.send({error: err});
-}
-app.use(signUpErrHandler);
-
 /** Database Wiring */
 // DB connection
 async function connectAndRun(task) {
@@ -99,32 +96,20 @@ const pgp = require('pg-promise')({
 });
 const db = pgp(config._dburl);
 
-// find if user exists, checks password, returns true if correct password
-// function validatePassword(username, password) {
-//     connectAndRun(db => 
-//         db.one("SELECT * FROM users WHERE email = $1 AND password = $2", [username, password]))
-//         .then(() => {
-//             return true;
-//         })
-//         .catch(() => {
-//             return false;
-//         });
-// }
-
 // Find if user exists. returns true if so.
 async function findUser(email) {
     return await connectAndRun(db => 
-        db.one("SELECT * FROM users WHERE email = $1;", email));
+        db.one("SELECT * FROM users WHERE email = $1:csv;", email));
 }
 
 // adds user to database
 async function addUser(user) {
     // Need to check if user exists?
     return await connectAndRun(db => 
-        db.none(
-            "INSERT INTO users(email, salt, password, name, interests, charities)\
-                VALUES ($1, $2, $3, $4, $5, $6)", 
-                Object.values(user) // [email, salt, password, name, interests[], charities[]]
+        db.none("INSERT INTO users($1:name) VALUES ($1:csv);",
+            // "INSERT INTO users(email, salt, password, name, interests, charities)\
+            //     VALUES ($1, $2, $3, $4, $5, $6)", 
+                [user] // [email, salt, password, name, interests[], charities[]]
         ));
 }
 
@@ -181,10 +166,12 @@ app.get('/signin',
 
 // Request to sign in, redirects to app on success, back to signin on failure
 app.post('/signin',
-        passport.authenticate('local', {
-            'successRedirect' : '/private',
-            'failureRedirect' : '/signin'
-        }));
+    passport.authenticate('local', {
+        'successRedirect' : '/private',
+        'failureRedirect' : '/signin',
+        'failureFlash': true
+    })
+);
 
 app.get('/logout', (req, res) => {
     req.logout();
@@ -251,9 +238,9 @@ app.post('/changePass',
         connectAndRun(db =>  
             db.none(
                 "UPDATE users \
-                SET salt = $1, \
-                    password = $2 \
-                WHERE email = $3;", 
+                SET salt = $1:csv, \
+                    password = $2:csv \
+                WHERE email = $3:csv;", 
                 [salt, hash, req.user]))
             .then(() => {
                 res.redirect('/signin')
@@ -270,7 +257,7 @@ app.get('/closeAccount',
 app.get('/private/:userID/closeAccount', 
     checkLoggedIn, 
     (req, res, next) => {
-        connectAndRun(db => db.none("DELETE FROM users WHERE email = $1;", req.user))
+        connectAndRun(db => db.none("DELETE FROM users WHERE email = $1:csv;", req.user))
         .then(() => {
             res.redirect('/logout');
         })
@@ -344,10 +331,25 @@ app.get('/charities', async function(req, res) {
 });
 
 app.get('*', (req, res) => {
-    res.status(404);
-    res.send('request does not exist.');
+    res.redirect('/');
 });
 
 app.listen(config.PORT, () => {
   console.log(`Example app listening at http://localhost:${config.PORT}`);
+});
+
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+app.use(methodOverride());
+
+app.use(function (err, req, res, next) {
+    res.send(`<h1>'${err}'</h1>
+                <br/><a href="/logout">Click here to logout</a>
+                <br><a href="/">Click here to go back to the Home Page</a>`
+            );
 });

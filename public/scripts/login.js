@@ -4,13 +4,16 @@ async function sign_in() {
     const email = document.getElementById('email').value,
         password = document.getElementById('pword').value,
         body = {id: email, password: password};
-    await fetch(__dirname + '/signin', {
+    const res = await fetch(__dirname + '/signin', {
         method: 'post',
         body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json'
         }
     });
+    if(!res.ok) {
+        console.log(res.body);
+    }
 }
 
 function getInterests() {
