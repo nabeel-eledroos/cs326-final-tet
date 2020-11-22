@@ -4,13 +4,16 @@ async function sign_in() {
     const email = document.getElementById('email').value,
         password = document.getElementById('pword').value,
         body = {id: email, password: password};
-    await fetch(__dirname + '/signin', {
+    const res = await fetch(__dirname + '/signin', {
         method: 'post',
         body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json'
         }
     });
+    if(!res.ok) {
+        console.log(res.body);
+    }
 }
 
 function getInterests() {
@@ -30,8 +33,7 @@ async function sign_up() {
         password = document.getElementById('password').value,
         repassword = document.getElementById('repassword').value;
     if (password !== repassword) {
-        //TODO: add pop-up for password mismatch
-        console.log("Passwords Don't Match!");
+        alert('Passwords do not match!');
         return;
     }
 
@@ -54,7 +56,7 @@ async function sign_up() {
     if (response.ok) {
         window.location.href = __dirname + '/signin';
     } else {
-        console.log(response.error);
+        alert(response.error);
         return;
     }
 }

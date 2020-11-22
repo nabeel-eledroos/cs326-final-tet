@@ -1,4 +1,6 @@
 
+import {addError} from './errorRender';
+
 const __dirname = location.protocol + '//' + location.host;
 
 const icons = { "Arts": "palette", "Automobiles": "car", "Books": "book", 'Business': "user-tie", "Fashion": "tshirt", "Style":"tshirt", "Food": "hamburger",
@@ -132,6 +134,9 @@ async function getInfo() {
             const accountInfo = await response.json();
             return accountInfo;
         } else {
+            // const error = await response.json();
+            // console.log(error);
+            // addError(error);
             throw 'Problem fetching from server: ' + response.statusText;
         }
     } catch(e) {

@@ -48,6 +48,20 @@ body {
     right: 3%;
 }
 
+#logout-btn {
+    position: absolute;
+    border-radius: 20px;
+    top: 3%;
+    right: 18%;
+}
+
+#logout-btn-pass {
+    position: absolute;
+    border-radius: 20px;
+    top: 3%;
+    right: 3%;
+}
+
 #delete-btn:hover{
     background-color: #b6b6b6;
 }
