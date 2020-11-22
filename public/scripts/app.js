@@ -86,7 +86,7 @@ async function render_trending(articles) {
     // console.log(articles);
 
     for (let i=article_start;i<article_start+3;i++) {
-        document.getElementById(`card-${card_num}-title`).innerHTML = `<a href='${articles[i].url}' target='_blank'>${articles[i].title} </a> <i class='fas fa-${icons[articles[i].section]}'></i>`;
+        document.getElementById(`card-${card_num}-title`).innerHTML = `<a href='${articles[i].url}' target='_blank'>${articles[i].title} </a>`;
         document.getElementById(`card-${card_num}-text`).innerText = articles[i].section;
 
         // Searching for charities by article section
@@ -98,6 +98,7 @@ async function render_trending(articles) {
         let charity_num = 1;
         for (let j=charity_start;j<charity_start+3;j++) {
             document.getElementById(`card-${card_num}-charity-${charity_num}`).innerHTML = `<a href='${charities[j].charityNavigatorURL}' target='_blank'>${charities[j].charityName} </a>`;
+            document.getElementById(`card-${card_num}-charity-${charity_num}-img`).innerHTML = `<i class='fas fa-${icons[articles[i].section]}'></i>`;
             if (charities[j].irsClassification.nteeClassification) {
                 document.getElementById(`card-${card_num}-charity-${charity_num}-info`).innerText = `Type: ${charities[j].irsClassification.nteeClassification}`;
             } else {
@@ -139,12 +140,13 @@ async function getInfo() {
     }
 }
 
-async function render_filters() {
-    const account_info = await getInfo();
-    const { interests } = account_info[0];
-    if (interests.length === 0) {
-        interests = ["coronavirus", "environment", "education"];
-    }
+function render_filters() {
+    // const account_info = await getInfo();
+    // const { interests } = account_info[0];
+    // if (interests.length === 0) {
+    //     interests = ["coronavirus", "environment", "education"];
+    // }
+    const interests = ["coronavirus", "environment", "education"];
     const parent = document.getElementById('cause-filter');
     interests.forEach((interest) => {
         let option = document.createElement("option");
@@ -158,7 +160,7 @@ window.addEventListener('load', async () => {
     const mostPopular = await getMostPopular();
     await render_trending(mostPopular.results);
 
-    await render_filters();
+    render_filters();
 });
 
 document.getElementById('cause-filter').addEventListener('change', async (event) => {
