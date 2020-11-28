@@ -167,14 +167,12 @@
 .text{
     font-family: Poppins;
     color: black;
-    /* font-weight: bold; */
     position: relative;
     margin:0 8px;
 }
 
 #cause-filter {
     position: relative;
-    /* box-sizing: border-box; */
     top: 25px;
     left: 9%;
     min-width: 180px;

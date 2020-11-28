@@ -1,6 +1,3 @@
-
-// import {addError} from './errorRender';
-
 const __dirname = location.protocol + '//' + location.host;
 
 const icons = { "Arts": "palette", "Automobiles": "car", "Books": "book", 'Business': "user-tie", "Fashion": "tshirt", "Style":"tshirt", "Food": "hamburger",
@@ -94,7 +91,6 @@ async function render_trending(articles) {
         // Searching for charities by article section
         //TODO: edge case if search comes back empty
         const charities = await searchCharities(articles[i].section);
-        // console.log(charities);
         // Picking a random number (1-17) and getting 3 charities
         const charity_start = Math.floor(Math.random() * 17) + 1;
         let charity_num = 1;

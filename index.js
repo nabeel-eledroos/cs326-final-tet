@@ -102,15 +102,10 @@ async function findUser(email) {
         db.one("SELECT * FROM users WHERE email = $1:csv;", email));
 }
 
-// adds user to database
+// Adds user to database
 async function addUser(user) {
-    // Need to check if user exists?
     return await connectAndRun(db => 
-        db.none("INSERT INTO users($1:name) VALUES ($1:csv);",
-            // "INSERT INTO users(email, salt, password, name, interests, charities)\
-            //     VALUES ($1, $2, $3, $4, $5, $6)", 
-                [user] // [email, salt, password, name, interests[], charities[]]
-        ));
+        db.none("INSERT INTO users($1:name) VALUES ($1:csv);", [user]));
 }
 
 app.use(express.static('public'));
