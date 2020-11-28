@@ -134,9 +134,6 @@ async function getInfo() {
             const accountInfo = await response.json();
             return accountInfo;
         } else {
-            // const error = await response.json();
-            // console.log(error);
-            // addError(error);
             throw 'Problem fetching from server: ' + response.statusText;
         }
     } catch(e) {
@@ -145,16 +142,12 @@ async function getInfo() {
     }
 }
 
-function render_filters() {
-    // const account_info = await getInfo();
-    // const { interests } = account_info[0];
-    // console.log(account_info[0]);
-    // console.log(interests);
-    // if (interests.length === 0) {
-    //     interests = ["coronavirus", "environment", "education"];
-    // }
-    // console.log(interests);
-    const interests = ["coronavirus", "environment", "education"];
+async function render_filters() {
+    const account_info = await getInfo();
+    const interests = account_info.interests;
+    if (interests.length === 0) {
+        interests = ["coronavirus", "environment", "education"];
+    }
     const parent = document.getElementById('cause-filter');
     interests.forEach((interest) => {
         let option = document.createElement("option");
@@ -168,7 +161,7 @@ window.addEventListener('load', async () => {
     const mostPopular = await getMostPopular();
     await render_trending(mostPopular.results);
 
-    render_filters();
+    await render_filters();
 });
 
 document.getElementById('cause-filter').addEventListener('change', async (event) => {

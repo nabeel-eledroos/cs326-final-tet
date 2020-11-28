@@ -17,6 +17,7 @@ async function getInfo() {
 
 async function render() {
     const account_info = await getInfo();
+    console.log(account_info);
     const { name, email, interests } = (account_info) ? account_info : 
         { "name" : "", 
           "email": "",
