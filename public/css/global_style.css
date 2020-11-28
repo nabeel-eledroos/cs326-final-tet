@@ -81,8 +81,7 @@ body {
 }
 
 #profile-icon {
-    /* this isnt working and im not sure why */
-    fill: white; 
+    color: #92899b; 
 }
 
 .smaller-text {
