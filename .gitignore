@@ -4,3 +4,5 @@ config.json
 .vscode
 old
 testDB.js
+docs/queries.txt
+old/*
