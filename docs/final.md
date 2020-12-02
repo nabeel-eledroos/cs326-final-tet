@@ -211,9 +211,38 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 
 ## URL Routes/Mappings: 
 A final up-to-date table of all the URL routes that your application supports and a short description of what those routes are used for. You should also indicate any authentication and permissions on those routes.
+### Table: URL Routes
+| Route | Description |
+|-------|-------------|
+| GET '/' | Sends the landing page (index.html). |
+| GET '/signup' | Sends the sign-up page (sign_up.html). |
+| POST '/signup' | Takes information submitted by user and checks if an account exists under that email. If so, it sends an error message. If not, it hashes the password and adds the user to the database. |
+| GET '/signin' | Sends sign-in page (sign_in.html). |
+| POST '/signin' | Takes user email and password and runs the passport Local Strategy to check if the account exists and correct password. If so, the user is logged in and the request is rerouted to '/private' and if not, it routes to '/signin' again. |
+| GET '/logout' | User is logged out via PassportJS and redirected to '/'. |
+| GET '/private' | Checks if user is logged in then redirects to '/private/:userID/'. |
+| GET '/private/:userID/' | Checks if user is logged in and sends the app page (app.html), if so. |
+| GET '/my_account' | Checks if user is logged in and redirects to '/private/:userID/my_account'. |
+| GET '/private/:userID/my_account' | Checks if user is logged in and if so, sends the user account page (my_account.html). |
+| GET '/userInfo' | Checks if user logged in and if so, redirects to '/private/:userID/userInfo'. |
+| GET '/private/:userID/userInfo' | Checks if user logged in and if so, it sends the user's account info retrieved from the database. |
+| GET '/changePassPage' | Checks log in and redirects to '/private/:userID/change' on success. |
+| GET '/private/:userID/change' | Checks log in and on success, sends the change password page (change_pass.html). |
+| POST '/changePass' | Checks log in and on success, the new password is hashed with salt and saved to the database. The request is then redirected to '/sigin'. |
+| GET '/closeAccount' | Checks log in and on success, redirects to '/private/:userID/closeAccount'. |
+| GET '/private/:userID/closeAccount' | Checks user log in and on success, the user account is deleted from the database and the request is redirected to '/logout'. |
+| GET '/topStories' | Retrieves info from NY Times API about the current top stories and responds to client with that info as JSON. |
+| GET '/mostPopular' | Retrieves info from the NY Times API about the most popular stories and responds to client with that info as JSON. |
+| POST '/charitySearch' | Retrieves charities from Charity Navigator API based on client interest parameter and responds with the info as JSON. |
+| GET '/charities' | Retrieves all charities from Charity Navigator API and responds to client with info as JSON. |
+| GET '*' | Redirects request to '/'. |
 
 ## Authentication/Authorization: 
 A final up-to-date description of how users are authenticated and any permissions for specific users (if any) that you used in your application. You should mention how they relate to which UI views are accessible.
+
+When signing up, user info is saved in the database with their email, which servers as a primary key, and their password, which is hashed with salt. Users are authenticated using PassportJS with a local strategy defined. The strategy first finds the user in the database, and if found, the password provided on sign in is hashed with salt and compared with the password stored in the database. If credentials provided are valid, the user is signed in with their email serving as the identifier. If not valid, the user must try again to sign in with the correct credentials or create an account. 
+
+Users that are signed in will be able to access their app, account, and change password pages along with the ability to delete their account. The user is is also able to logout, which passport will handle on the request to the server.
 
 ## Division of Labor: 
 A breakdown of the division of labor for each team member — that is, saying who did what, for the entire project. Remember that everyone is expected to contribute roughly equally to each phase of the project. We expect to see similar numbers and kinds of GitHub commits by each student.
