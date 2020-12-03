@@ -216,15 +216,16 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 ### Table: USERS
 | Field       | Data Type | Description              |
 |--------------|-----------|--------------------------|
-| email  | String    | The email field of the user table serves as the primary key so each user(entry) is unique through email.  |
+| email  | String    | The email field of the users table serves as the primary key so each users(entry) is unique through email.  |
 | password/salt | String/String   | The password of a user is encrypted with minicrypt by the server and stored in the salt and password fields. |
 | name  | String    | This is simply the (full) name of the user.  |
 | interests  | String Array    | This fields stores and array of interests, which the user will pick from when signing up.  |
-| charities  | Int Array    | The user will have a list of charities which they are associated with. The charities from the Chavity Navigator API are referenced by ID, so this field stores the IDs as an array of integers.  |
+
+<!-- | charities  | Int Array    | The user will have a list of charities which they are associated with. The charities from the Chavity Navigator API are referenced by ID, so this field stores the IDs as an array of integers.  | -->
 
 <!-- A final up-to-date table of all the URL routes that your application supports and a short description of what those routes are used for. You should also indicate any authentication and permissions on those routes. -->
 ## URL Routes/Mappings: 
-### Table: URL Routes
+### URL Routes
 | Route | Description |
 |-------|-------------|
 | GET '/' | Sends the landing page (index.html). |
@@ -263,7 +264,6 @@ Users that are signed in will be able to access their app, account, and change p
 ## Division of Labor: 
 <!-- A breakdown of the division of labor for each team member — that is, saying who did what, for the entire project. Remember that everyone is expected to contribute roughly equally to each phase of the project. We expect to see similar numbers and kinds of GitHub commits by each student. -->
 
-### Table: URL Routes
 | Member | Labor |
 |-------|-------------|
 | Nabeel Eledroos |  |
@@ -271,3 +271,10 @@ Users that are signed in will be able to access their app, account, and change p
 
 ## Conclusion: 
 A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered.
+
+
+Starting off, we had some difficulty writing the basic html and css that we used as the template for the whole site. Styling the header and footer images were especially annoying, since they were hard to place and size correctly without messing up the rest of the page. However, once we had the html/css template done, it was pretty easy to build on top of it and keep adding pages, since we were able to copy/paste the template and work from there. Working with the external APIs also proved to be annoying. The Charity Navigator API was particularly frustrating because the information it returned is inconsistent between each charity, so we couldn’t display a lot of info about each one.
+
+Writing the client-side javascript was also pretty easy, because we got a lot of practice in the lectures and homework for this class. Once we had the dummy server, transitioning to the actual SQL server wasn’t too hard, besides some initial difficulty we had in setting the table up. The actual code changes and queries weren’t too different from what we had before.
+
+If we were able to continue working on this we would like to make some changes and add some new features. In terms of changes, we would like to make some small UI enhancements, mainly involving giving the user some feedback. For example, telling the user when there is a database/backend error, or giving them a confirmation once they’re signed in. Another potential UI change would be better formatting for mobile, as right now a lot of elements on the page overlap when the screen is smaller. As mentioned earlier, we would also like to get better information out of the Charity Navigator API to display for the user, as right now there isn't too much. Lastly, we would like to give users the ability to save charities, so that they can come back to their account and view them later.
