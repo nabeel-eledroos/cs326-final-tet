@@ -8,8 +8,12 @@
 
 ## Semester: Fall 2020
 
-## Overview: 
-A brief overview of your application. This will be based on what you are submitting as your final web application artifact. You should also mention why your application is innovative.
+## Overview:
+<!-- A brief overview of your application. This will be based on what you are submitting as your final web application artifact. You should also mention why your application is innovative. -->
+
+Charity Match is a website that provides the user with a live news feed of pressing world issues, and matches that directly to organizations that are helping solve that issue. The goal of this is to consolidate information about different charities, and also provide the direct connection between these charities and their causes.
+
+Using the New York Times API to get the top stories of the day, we source charities and non-profits from the Charity Navigator API, which allows us to match current events to charities that are associated with them.
 
 <!-- A list of your team members, with names and GitHub aliases. -->
 ## Team Members: 
@@ -18,8 +22,17 @@ Nabeel Eledroos - `nabeel-eledroos`
 
 Jake Recoulle - `jdrecoulle0001`
 
-## User Interface: 
-A final up-to-date list/table describing your application’s user interface. This should include the name of the UI view and its purpose. You should include a screenshot of each of your UI views.
+## User Interface:
+<!-- A final up-to-date list/table describing your application’s user interface. This should include the name of the UI view and its purpose. You should include a screenshot of each of your UI views. -->
+
+| Name | Description | UI |
+|-------|---------| ----|
+| Landing Page (`/index.html`) | What the user first sees when they open Charity Match. | ![Landing Page](../Screenshots/landing.png) |
+| Sign Up (`/signup/sign_up.html`) | Sign Up Page, where user sets account info. | ![Sign Up Page](../Screenshots/sign-up.png) |
+| Sign In (`/signin/sign_in.html`) | Sign In Page, where user enters email and password. | ![Sign In Page](../Screenshots/sign-in.png) |
+| App Page (`/app/app.html`) | Main app page, where article and charity content is displayed. | ![App Page](../Screenshots/app.png) |
+| Account Page (`/user_account/my_account.html`) | Displays account info, allows user to logout or delete their account. | ![Account page](../Screenshots/account.png) |
+| Change Password (`/user_account/change_pass.html`) | Allows user to change their password, accessible only from account page. | ![Change Pass Page](../Screenshots/change-pass.png) |
 
 <!-- A final up-to-date list/table describing your application’s API -->
 ## APIs:
@@ -109,17 +122,17 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 
 1. Getting homepage:
 
-  Request: `HTTP GET https://charity--match.herokuapp.com/`
+  Request: `HTTP GET {url}/`
 
   Accessing the website sends a GET request to the server. The server handles this under the '/' request, which sends the client the landing page to load.
 
 2. Signing Up with Charity Match
 
-  Request: `HTTP GET/POST https://charity--match.herokuapp.com/signup`
+  Request: `HTTP GET/POST {url}/signup`
 
-  The GET request, https://charity--match.herokuapp.com/signup, returns the page to load.
+  The GET request, `{url}/signup`, returns the page to load.
 
-  The POST request to https://charity--match.herokuapp.com/signup adds a user to the database. The request is formatted as so:
+  The POST request to `{url}/signup` adds a user to the database. The request is formatted as so:
 
     {
       first_name: req.body.first_name,
@@ -131,31 +144,31 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
     };
 
 
-  On success, the server redirects the user to https://https://charity--match.herokuapp.com/signin where they server will respond with the signin page.
+  On success, the server redirects the user to `{url}/signin` where they server will respond with the signin page.
 
 3. Signing into Charity Match Account:
 
-  Request: `HTTP GET/POST https://https://charity--match.herokuapp.com/signin`
+  Request: `HTTP GET/POST {url}/signin`
 
   The GET request is handled by the server responding with the page to load.
 
-  The POST request to https://https://charity--match.herokuapp.com/signin reads from the database to see if the user has an account. On success, the server redirects the client to https://https://charity--match.herokuapp.com/app, where the server responds with the user's personal webpage. On failure, the server sends a 400 response indicating what went wrong.
+  The POST request to `{url}/signin` reads from the database to see if the user has an account. On success, the server redirects the client to `{url}/app`, where the server responds with the user's personal webpage. On failure, the server sends a 400 response indicating what went wrong.
 
 4. User's Charity-Match Home Page:
 
-  Request: `HTTP GET https://https://charity--match.herokuapp.com/app`
+  Request: `HTTP GET {url}/app`
 
   The client is redirected to make the GET request for the server to return the user's personal homepage. On failure, the server sends to the client a 400 status indicating a user has not been signed in. On load of the user's page, the client makes a GET request to the server responding with JSON of of the top news and most popular stories from the New York Times API, as described above.
 
 5. Logging Out:
 
-  Request: `HTTP GET https://https://charity--match.herokuapp.com/logout`
+  Request: `HTTP GET {url}/logout`
 
-  The GET request has the server destroy the user session and redirecting them to https://https://charity--match.herokuapp.com/, where the server will send them back the landing page.
+  The GET request has the server destroy the user session and redirecting them to `{url}/`, where the server will send them back the landing page.
 
 6. User's Account Page: 
 
-  Request: `HTTP GET https://https://charity--match.herokuapp.com/account`
+  Request: `HTTP GET {url}/account`
 
   The GET request returns the user's information as JSON. The information is retrieved based on the user that is signed in. The information is structured as:
 
@@ -170,7 +183,7 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 
 7. Change User Password:
 
-  Request: `HTTP POST https://https://charity--match.herokuapp.com/changePass`
+  Request: `HTTP POST {url}/changePass`
 
   Body: `{ password: new_password }`
 
@@ -178,18 +191,18 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 
 8. Close User Account: 
 
-  Request: `HTTP GET https://https://charity--match.herokuapp.com/account` 
+  Request: `HTTP GET {url}/account` 
 
-  The server handles this by checking to see if the user that wants to close the account is logged in. If so, it finds the user's information, and deletes it from the database, then redirects the client to https://https://charity--match.herokuapp.com/logout.
+  The server handles this by checking to see if the user that wants to close the account is logged in. If so, it finds the user's information, and deletes it from the database, then redirects the client to `{url}/logout`.
 
 9. Getting Top Stories:
 
-  Request: `HTTP GET  https://https://charity--match.herokuapp.com/topStories`
+  Request: `HTTP GET  {url}/topStories`
 
   The server reaches out to the New York Times API by making a GET request to the API, as described above. The data retrieved will be JSON which gets sent back to the client as JSON.
 
 10. Getting Most Popular Stories: 
-  Request: `HTTP GET  https://https://charity--match.herokuapp.com/mostPopular`
+  Request: `HTTP GET  {url}/mostPopular`
 
   The server reaches out to the New York Times API, making a get request to the Most Popular API, as described above. The data retrieved will be JSON, in the format described prior, and be sent to the client as JSON.
 
@@ -209,8 +222,8 @@ See here for more: [Charity Navigator API Documentation](https://charity.3scale.
 | interests  | String Array    | This fields stores and array of interests, which the user will pick from when signing up.  |
 | charities  | Int Array    | The user will have a list of charities which they are associated with. The charities from the Chavity Navigator API are referenced by ID, so this field stores the IDs as an array of integers.  |
 
+<!-- A final up-to-date table of all the URL routes that your application supports and a short description of what those routes are used for. You should also indicate any authentication and permissions on those routes. -->
 ## URL Routes/Mappings: 
-A final up-to-date table of all the URL routes that your application supports and a short description of what those routes are used for. You should also indicate any authentication and permissions on those routes.
 ### Table: URL Routes
 | Route | Description |
 |-------|-------------|
@@ -237,15 +250,24 @@ A final up-to-date table of all the URL routes that your application supports an
 | GET '/charities' | Retrieves all charities from Charity Navigator API and responds to client with info as JSON. |
 | GET '*' | Redirects request to '/'. |
 
+
+
+
+<!-- A final up-to-date description of how users are authenticated and any permissions for specific users (if any) that you used in your application. You should mention how they relate to which UI views are accessible. -->
 ## Authentication/Authorization: 
-A final up-to-date description of how users are authenticated and any permissions for specific users (if any) that you used in your application. You should mention how they relate to which UI views are accessible.
 
 When signing up, user info is saved in the database with their email, which servers as a primary key, and their password, which is hashed with salt. Users are authenticated using PassportJS with a local strategy defined. The strategy first finds the user in the database, and if found, the password provided on sign in is hashed with salt and compared with the password stored in the database. If credentials provided are valid, the user is signed in with their email serving as the identifier. If not valid, the user must try again to sign in with the correct credentials or create an account. 
 
 Users that are signed in will be able to access their app, account, and change password pages along with the ability to delete their account. The user is is also able to logout, which passport will handle on the request to the server.
 
 ## Division of Labor: 
-A breakdown of the division of labor for each team member — that is, saying who did what, for the entire project. Remember that everyone is expected to contribute roughly equally to each phase of the project. We expect to see similar numbers and kinds of GitHub commits by each student.
+<!-- A breakdown of the division of labor for each team member — that is, saying who did what, for the entire project. Remember that everyone is expected to contribute roughly equally to each phase of the project. We expect to see similar numbers and kinds of GitHub commits by each student. -->
+
+### Table: URL Routes
+| Member | Labor |
+|-------|-------------|
+| Nabeel Eledroos |  |
+| Jake Recoulle |  |
 
 ## Conclusion: 
 A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered.
