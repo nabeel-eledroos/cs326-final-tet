@@ -267,7 +267,7 @@ Users that are signed in will be able to access their app, account, and change p
 | Member | Labor |
 |-------|-------------|
 | Nabeel Eledroos |  |
-| Jake Recoulle |  |
+| Jake Recoulle | Implemented PostgreSQL database through Heroku to store user info. Drafted queries used to create, read, update, and delete (CRUD) users from the database. Wrote handlers for API calls to the server from the client to send appropriate files and info back to client. Wrote documentation for the all API calls. Added authentication and encryption for user validation and protection. Made framework for all our html files, created template for sign up pages, worked extensively on app page and landing page, worked on wireframes. |
 
 ## Conclusion: 
 A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered.
