@@ -266,11 +266,11 @@ Users that are signed in will be able to access their app, account, and change p
 
 | Member | Labor |
 |-------|-------------|
-| Nabeel Eledroos |  |
+| Nabeel Eledroos | Worked extensively on front-end HTML content and CSS styling for all pages. Implemented queries for all CRUD operations from the database. Modified endpoints on the server and added endpoints. Wrote external API requests to NYT and Charity Navigator APIs, and wrote all logic to render this data on the main app page. Documented external API, and connected sign-in, sign-up, account, and change password pages to backend. Deployed website on Heroku. Worked on initial wireframes. |
 | Jake Recoulle | Implemented PostgreSQL database through Heroku to store user info. Drafted queries used to create, read, update, and delete (CRUD) users from the database. Wrote handlers for API calls to the server from the client to send appropriate files and info back to client. Wrote documentation for the all API calls. Added authentication and encryption for user validation and protection. Made framework for all our html files, created template for sign up pages, worked extensively on app page and landing page, worked on wireframes. |
 
 ## Conclusion: 
-A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered.
+<!-- A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered. -->
 
 
 Starting off, we had some difficulty writing the basic html and css that we used as the template for the whole site. Styling the header and footer images were especially annoying, since they were hard to place and size correctly without messing up the rest of the page. However, once we had the html/css template done, it was pretty easy to build on top of it and keep adding pages, since we were able to copy/paste the template and work from there. Working with the external APIs also proved to be annoying. The Charity Navigator API was particularly frustrating because the information it returned is inconsistent between each charity, so we couldn’t display a lot of info about each one.

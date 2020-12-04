@@ -20,4 +20,5 @@
     3. Calls to server done asynchronously and returned useful info.
     4. All calls were error checked.
     5. Information rendered into app and account info pages was done with the correct styling and layout.
-    6. All information sent to server about users was sent in correct format for backend to handle.
+    6. All user input was handled appropriately by client-side Javascript, checking for errors when needed
+    7. All information sent to server about users was sent in correct format for backend to handle.
